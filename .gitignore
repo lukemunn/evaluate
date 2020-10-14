@@ -1,0 +1,3 @@
+
+# Ignore credentials used for Google Sheets
+credentials.json
