@@ -1,9 +1,9 @@
 dragula([
-	document.getElementById('1'),
-	document.getElementById('2'),
-	document.getElementById('3'),
-	document.getElementById('4'),
-	document.getElementById('5')
+	document.getElementById('drag-1'),
+	document.getElementById('drag-2'),
+	document.getElementById('drag-3'),
+	document.getElementById('drag-4'),
+	document.getElementById('drag-5')
 ])
 
 .on('drag', function(el) {

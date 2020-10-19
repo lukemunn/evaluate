@@ -1,3 +1,4 @@
+const { jsPDF } = window.jspdf;
 
 CLIENT_ID = '559576953817-0drd9ji65as2gc750tpvuj5hcfglsrod.apps.googleusercontent.com';
 API_KEY = 'AIzaSyDJqo5JL9MxUqHBVdkAn6DhgKcfGaVam4w';
@@ -103,27 +104,113 @@ function generateReport() {
     let report = '<h3>Evaluation Framework</h3>';
 
     report += '<h4>Behavioural Indicators</h4>';
-    $('#1').find('li').each((index, value) => {
-        console.log(value.innerText);
-    });
-    $('#1').find('li').each((index, value) => {
+    $('#drag-1').find('li').each((index, value) => {
         report += `<p>${value.innerText }</p>`;
     });
     report += '<h4>Individual Indicators</h4>';
-    $('#2').find('li').each((index, value) => {
+    $('#drag-2').find('li').each((index, value) => {
         report += `<p>${value.innerText }</p>`;
     });
     report += '<h4>Relational / Institutional / Societal Indicators</h4>';
-    $('#3').find('li').each((index, value) => {
+    $('#drag-3').find('li').each((index, value) => {
         report += `<p>${value.innerText }</p>`;
     });
     report += '<p><a style="font-size: 11px" href="#" onclick="hideReport()">Hide</a></p>';
-    console.log(report);
 
     $(".report-fixed").html(report);
-    $(".report-fixed").show();
+    // $(".report-fixed").show();
+
+
+    const doc = new jsPDF();
+    let yo = 40;
+
+    doc.setFontSize(30);
+    doc.text("Evaluation Framework", 10, 20);
+    doc.setFontSize(20);
+    doc.setFont(doc.getFont().fontName, "italic");
+    doc.text("[Add title page details here]", 10, 40);
+    doc.setFont(doc.getFont().fontName, "normal");
+
+    doc.addPage();
+    doc.setFontSize(20);
+    doc.text("Behavioural Indicators", 10, 20);
+    generateIndicators(doc, $('#drag-1'));
+
+    doc.addPage();
+    doc.setFontSize(20);
+    doc.text("Individual Indicators", 10, 20);
+    
+    generateIndicators(doc, $('#drag-2'));
+
+    doc.addPage();
+    doc.setFontSize(20);
+    doc.text("Relational / Institutional / Societal Indicators", 10, 20);
+    
+    generateIndicators(doc, $('#drag-3'));
+    doc.save("Evaluation-Framework-2020.pdf");
 }
 
+function generateIndicators(doc, element) {
+    let initialYOffset = 40;
+    let yo = initialYOffset;
+    let indicatorsPerPage  = 4;
+    let counter = 0;
+    element.find('li').each((index, value) => {
+        doc.setFontSize(12);
+        doc.text(value.innerText, 10, yo);
+        let desc = $(value).find('span.desc')[0];
+        let plus = $(value).find('span.plus')[0];
+        let minus = $(value).find('span.minus')[0];
+        let recommend = $(value).find('span.recommend')[0];
+        let cite = $(value).find('span.cite')[0];
+        doc.setFontSize(12);
+        yo += 8;
+        doc.setFont(doc.getFont().fontName, "bold");
+        doc.text("Description: ", 10, yo);
+        doc.setFont(doc.getFont().fontName, "normal");
+        doc.text(desc.innerText, 50, yo);
+        yo += 8;
+        doc.setFont(doc.getFont().fontName, "bold");
+        doc.text("Pros: ", 10, yo);
+        doc.setFont(doc.getFont().fontName, "normal");
+        doc.text(plus.innerText, 50, yo);
+        yo += 8;
+        doc.setFont(doc.getFont().fontName, "bold");
+        doc.text("Cons: ", 10, yo);
+        doc.setFont(doc.getFont().fontName, "normal");
+        doc.text(minus.innerText, 50, yo);
+        yo += 8;
+        doc.setFont(doc.getFont().fontName, "bold");
+        doc.text("Recommendation: ", 10, yo);
+        doc.setFont(doc.getFont().fontName, "normal");
+        doc.text(recommend.innerText, 50, yo);
+        yo += 8;
+        doc.setFont(doc.getFont().fontName, "bold");
+        doc.text("Reference: ", 10, yo);
+        doc.setFont(doc.getFont().fontName, "normal");
+        doc.text(cite.innerText, 50, yo);
+        yo += 16;
+
+            
+
+        counter++;
+        if (counter % indicatorsPerPage == 0) {
+            doc.addPage();
+            yo = initialYOffset;
+        }
+    });
+  
+
+}
+/* Test text
+    
+    let vals = [];
+    $('#drag-1').find('li').each((index, value) => {
+        vals.push(value);
+        console.log(index);
+    });    
+*/
+
 function hideReport() {
-    $(".report-fixed").hide();
+    $('.report-fixed').hide();
 }
