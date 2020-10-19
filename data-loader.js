@@ -5,10 +5,10 @@ SPREADSHEET_ID = '1NLdHWSQjWVZKCyQxjDx3jK9FbfFGvl5YGCxFSJnN1lQ';
 INDICATOR_RANGE = "'Matrix of possible indicators & measures'!A3:J53"
 
 // Dynamic loading?
-$.get('/credentials.json').then((response) => {
-    CLIENT_ID = response.web.client_id;
-    console.log(CLIENT_ID);
-});
+// $.get('/credentials.json').then((response) => {
+//     CLIENT_ID = response.web.client_id;
+//     console.log(CLIENT_ID);
+// });
 
 
 // Array of API discovery doc URLs for APIs used by the quickstart
