@@ -156,48 +156,68 @@ function generateIndicators(doc, element) {
     let indicatorsPerPage  = 4;
     let counter = 0;
     element.find('li').each((index, value) => {
-        doc.setFontSize(12);
-        doc.text(value.innerText, 10, yo);
         let desc = $(value).find('span.desc')[0];
+        let measuresText = desc.innerText.split('\n');
         let plus = $(value).find('span.plus')[0];
         let minus = $(value).find('span.minus')[0];
         let recommend = $(value).find('span.recommend')[0];
         let cite = $(value).find('span.cite')[0];
+
+        let reflow = 80;
+        let longestLine = Math.max(...measuresText.map((mt) => mt.length));
+        let lines = measuresText.map((mt) => mt.length / 80).reduce((acc, curr) => acc + curr, 0);
+        // 102 = 16 * 5 fields + 22
+        let estimatedYO = yo + 102 + (lines - 1) * 8;
+        // A4 = 842 points
+        counter++;
+        if (counter % indicatorsPerPage == 0 || estimatedYO > 800) {
+            doc.addPage();
+            yo = initialYOffset;
+            counter = 0;
+        }
         doc.setFontSize(12);
-        yo += 8;
-        doc.setFont(doc.getFont().fontName, "bold");
-        doc.text("Description: ", 10, yo);
-        doc.setFont(doc.getFont().fontName, "normal");
-        doc.text(desc.innerText, 50, yo);
-        yo += 8;
+        doc.text(value.innerText, 10, yo);
+
+        doc.setFontSize(10);
+        yo += 6;
         doc.setFont(doc.getFont().fontName, "bold");
         doc.text("Pros: ", 10, yo);
         doc.setFont(doc.getFont().fontName, "normal");
         doc.text(plus.innerText, 50, yo);
-        yo += 8;
+        yo += 6;
         doc.setFont(doc.getFont().fontName, "bold");
         doc.text("Cons: ", 10, yo);
         doc.setFont(doc.getFont().fontName, "normal");
         doc.text(minus.innerText, 50, yo);
-        yo += 8;
+        yo += 6;
         doc.setFont(doc.getFont().fontName, "bold");
         doc.text("Recommendation: ", 10, yo);
         doc.setFont(doc.getFont().fontName, "normal");
         doc.text(recommend.innerText, 50, yo);
-        yo += 8;
+        yo += 6;
         doc.setFont(doc.getFont().fontName, "bold");
         doc.text("Reference: ", 10, yo);
         doc.setFont(doc.getFont().fontName, "normal");
         doc.text(cite.innerText, 50, yo);
-        yo += 16;
+        yo += 6;
+        doc.setFont(doc.getFont().fontName, "bold");
+        doc.text("Measures: ", 10, yo);
+        doc.setFont(doc.getFont().fontName, "normal");
+        
+        for (let i = 0; i < measuresText.length; i++) {
+            let mt = measuresText[i];
 
+            // Re-flow every 80 characters
+            let len = mt.length;
             
-
-        counter++;
-        if (counter % indicatorsPerPage == 0) {
-            doc.addPage();
-            yo = initialYOffset;
+            for (let j = 0; j < len; j += reflow) {
+                doc.text(mt.substring(j, j+reflow), 50, yo);
+                yo += 2;
+            }
         }
+        
+        yo += 8;
+
     });
   
 
