@@ -297,3 +297,7 @@ ul {
   display: none;
 }
 
+ul.drag-inner-list#drag-4 {
+  height: 600px; 
+  overflow: scroll;
+}
