@@ -18,13 +18,18 @@
 	<h1>Evaluate It!</h1>
 	<h4>Build Your Own Online Safety Evaluation Scheme</h4>
 	<p>Smaller organisations should select <b>at least 2 indicators</b> at each scale, larger agencies with more resources should select <b>at least 3</b>.</p>
+	<p>Click <a href="#" onclick="generateReport();">Generate Report</a> when you're done.</p>
+</section>
+
+<section class="report-area">
+    <div class="report-fixed">Hello World!</div>
 </section>
 
 <div class="drag-container">
 	<ul class="drag-list">
 		<li class="drag-column drag-column-on-hold">
 			<span class="drag-column-header">
-				<h2>Individual (Micro)</h2>
+				<h2>Behavioural - clicks, expressions, posts etc (Micro)</h2>
 
 			</span>
 				
@@ -35,7 +40,7 @@
 		</li>
 		<li class="drag-column drag-column-in-progress">
 			<span class="drag-column-header">
-				<h2>Institutional (Meso)</h2>
+				<h2>Individual - attitudes, knowledge, beliefs (Meso)</h2>
 
 			</span>
 			<div class="drag-options" id="options2"></div>
@@ -45,7 +50,7 @@
 		</li>
 		<li class="drag-column drag-column-needs-review">
 			<span class="drag-column-header">
-				<h2>Sociocultural (Macro)</h2>
+				<h2>Relational / Institutional / Societal - policies, laws, norms, relationships (Macro)</h2>
 
 			</span>
 			<div class="drag-options" id="options3"></div>
@@ -59,7 +64,7 @@
 			</span>
 			<div class="drag-options" id="options4"></div>
 			<ul class="drag-inner-list" id="4">
-				<li class="drag-item micro">
+				<!-- <li class="drag-item micro">
 					<h4>Scale of School Aggression</h4>
 					<span class="desc">"aggressive behaviors toward peers in the school context in the past 12 months"</span>
 					<span class="plus">Consults participants directly</span>
@@ -113,7 +118,7 @@
 					<span class="plus">Concrete statistic that can demonstrate engagement and "round out" other measures</span>
 					<span class="minus">Tends to measure the popularity of the programme rather than providing indication of any behavioral change</span>
 					<span class="cite">Spears et al. 2016 "Safe and Well Online" project</span>
-				</li>
+				</li> -->
 				
 			</ul>
 		</li>
@@ -128,16 +133,16 @@
 	<span class="desc">Rollover any indicator to get more info about it</span>
 	<span class="plus">Strengths</span>
 	<span class="minus">Weaknesses</span>
+	<span class="recommend">Recommendations</span>
 	<span class="cite">Academic Literature or NGO Project</span>
 </div>
-
 
 </body>
 
 <footer>
 	
 	<script src="jquery.min.js"></script>	
-	<script src="data-loader.js"></script>	 -->
+	<script src="data-loader.js"></script>	
     <script async defer src="https://apis.google.com/js/api.js"
       onload="this.onload=function(){};handleClientLoad()"
       onreadystatechange="if (this.readyState === 'complete') this.onload()">

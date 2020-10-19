@@ -215,7 +215,7 @@ ul {
 	padding-top: 1em;
 }
 
-#infopanel .plus, #infopanel .minus {
+#infopanel .recommend, #infopanel .plus, #infopanel .minus {
 	font-size: 14px;
 }
 
@@ -226,6 +226,11 @@ ul {
 #infopanel .minus::before {
 	content: "- ";
 }
+
+#infopanel .recommend::before {
+	content: "Overall: ";
+}
+
 
 
 /* Dragula CSS  */
@@ -271,4 +276,18 @@ ul {
 	margin-bottom: 0;
 }
 
+.report-area {
+  position: relative;
+  /* you may want to set the width/height here as well*/
+}
+
+.report-fixed {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 5px;
+  z-index: 100;  
+  background-color: #cccccc;
+  display: none;
+}
 

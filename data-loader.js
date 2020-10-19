@@ -2,7 +2,7 @@
 CLIENT_ID = '559576953817-0drd9ji65as2gc750tpvuj5hcfglsrod.apps.googleusercontent.com';
 API_KEY = 'AIzaSyDJqo5JL9MxUqHBVdkAn6DhgKcfGaVam4w';
 SPREADSHEET_ID = '1NLdHWSQjWVZKCyQxjDx3jK9FbfFGvl5YGCxFSJnN1lQ';
-INDICATOR_RANGE = "'Matrix of possible indicators & measures'!A3:J53"
+INDICATOR_RANGE = "'Matrix of possible indicators & measures'!A3:O100"
 
 // Dynamic loading?
 // $.get('/credentials.json').then((response) => {
@@ -17,6 +17,11 @@ var DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"
 // Authorization scopes required by the API; multiple scopes can be
 // included, separated by spaces.
 var SCOPES = "https://www.googleapis.com/auth/spreadsheets.readonly";
+
+
+// Global variable for results - use for look-ups
+let indicators = null;
+
 
 /**
  *  On load, called to load the auth2 library and API client library.
@@ -43,27 +48,35 @@ function initClient() {
             spreadsheetId: SPREADSHEET_ID,
             range: INDICATOR_RANGE
           }).then((response) => {
-            var result = response.result;
-            var numRows = result.values ? result.values.length : 0;
+            let result = response.result;
+            indicators = result;
+            let numRows = result.values ? result.values.length : 0;
 
             for (let i = 0; i < result.values.length; i++) {
                 let row = result.values[i];
-                let name = row[1];
-                let desc = row[2];
-                let plus = 'Plus';
-                let minus = 'Minus';
+                let issue = row[1];
+                let name = row[2];
+                let desc = row[3];
+                let recommend = row[9];
+                recommend = recommend == '' ? 'N/A' : recommend;
+                let plus = row[10];
+                let minus = row[11];
+                let candidate = row[13];
+                let level = row[14].toLowerCase();
                 let cite = row[row.length - 1];
 
-                // console.log(result.values[i].length);
-                $('.drag-column-approved > .drag-inner-list').append( 
-                    `<li class="drag-item micro">
-                        <h4>${name}</h4>
-                        <span class="desc">${desc}</span>
-                        <span class="plus">${plus}</span>
-                        <span class="minus">${minus}</span>
-                        <span class="cite">${cite}</span>
-                    </li>`
-                );
+                if (candidate == 'Y') {
+                    $('.drag-column-approved > .drag-inner-list').append( 
+                        `<li class="drag-item ${level}">
+                            <h4>${name}</h4>
+                            <span class="desc">${desc}</span>
+                            <span class="plus">${plus}</span>
+                            <span class="minus">${minus}</span>
+                            <span class="recommend">${recommend}</span>
+                            <span class="cite">${cite}</span>
+                        </li>`
+                    );
+                }
             }
             $( ".drag-item" ).hover(
                 function() {
@@ -84,4 +97,34 @@ function initClient() {
         console.log('got here error');
         console.log(JSON.stringify(error, null, 2));
     });
+}
+
+
+function generateReport() {
+    let report = '<h3>Evaluation Framework</h3>';
+
+    report += '<h4>Behavioural Indicators</h4>';
+    $('#1').find('li').each((index, value) => {
+        console.log(value.innerText);
+    });
+    $('#1').find('li').each((index, value) => {
+        report += `<p>${value.innerText }</p>`;
+    });
+    report += '<h4>Individual Indicators</h4>';
+    $('#2').find('li').each((index, value) => {
+        report += `<p>${value.innerText }</p>`;
+    });
+    report += '<h4>Relational / Institutional / Societal Indicators</h4>';
+    $('#3').find('li').each((index, value) => {
+        report += `<p>${value.innerText }</p>`;
+    });
+    report += '<p><a style="font-size: 11px" href="#" onclick="hideReport()">Hide</a></p>';
+    console.log(report);
+
+    $(".report-fixed").html(report);
+    $(".report-fixed").show();
+}
+
+function hideReport() {
+    $(".report-fixed").hide();
 }
