@@ -63,7 +63,7 @@ function initClient() {
                 let minus = row[11];
                 let candidate = row[13];
                 let level = row[14].toLowerCase();
-                let cite = row[row.length - 1];
+                let cite = row[12];
 
                 if (candidate == 'Y') {
                     $('.drag-column-approved > .drag-inner-list').append( 
@@ -94,7 +94,6 @@ function initClient() {
 
 
     }, function(error) {
-        console.log('got here error');
         console.log(JSON.stringify(error, null, 2));
     });
 }

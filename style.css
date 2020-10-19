@@ -52,6 +52,12 @@ ul {
   text-transform: uppercase;
   font-weight: 600;
 }
+.drag-column h3, h4 {
+  font-size: 0.8rem;
+  margin: 0;
+  font-weight: 400;
+}
+
 .drag-column-on-hold .drag-column-header,
 .drag-column-on-hold .is-moved,
 .drag-column-on-hold .drag-options {
