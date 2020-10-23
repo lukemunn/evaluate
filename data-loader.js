@@ -1,9 +1,12 @@
+var PDFDocument = PDFLib.PDFDocument;
+
+
 const { jsPDF } = window.jspdf;
 
 CLIENT_ID = '559576953817-0drd9ji65as2gc750tpvuj5hcfglsrod.apps.googleusercontent.com';
 API_KEY = 'AIzaSyDJqo5JL9MxUqHBVdkAn6DhgKcfGaVam4w';
 SPREADSHEET_ID = '1NLdHWSQjWVZKCyQxjDx3jK9FbfFGvl5YGCxFSJnN1lQ';
-INDICATOR_RANGE = "'Matrix of possible indicators & measures'!A3:O100"
+INDICATOR_RANGE = "'Matrix of possible indicators & measures'!A3:Q100"
 
 // Dynamic loading?
 // $.get('/credentials.json').then((response) => {
@@ -55,7 +58,13 @@ function initClient() {
 
             for (let i = 0; i < result.values.length; i++) {
                 let row = result.values[i];
-                let issue = row[1];
+                let issue = row[1].toLowerCase();
+				if (issue=="online grooming") {
+					issue="grooming";
+				}
+				if (issue=="both") {
+					issue="grooming cyberbullying";
+				}
                 let name = row[2];
                 let desc = row[3];
                 let recommend = row[9];
@@ -65,10 +74,12 @@ function initClient() {
                 let candidate = row[13];
                 let level = row[14].toLowerCase();
                 let cite = row[12];
+				var involving = row[15];
+				var targeting = row[16];
 
                 if (candidate == 'Y') {
-                    $('.drag-column-approved > .drag-inner-list').append( 
-                        `<li class="drag-item ${level}">
+                    $('#drag-4').append( 
+                        `<li class="drag-item ${issue} ${level} ${involving} ${targeting}">
                             <h4>${name}</h4>
                             <span class="desc">${desc}</span>
                             <span class="plus">${plus}</span>
@@ -79,15 +90,23 @@ function initClient() {
                     );
                 }
             }
+			
+			
             $( ".drag-item" ).hover(
                 function() {
-                    console.log("rollover");
                     var innerhtml = $( this ).html();
                   $( "#infopanel" ).html(innerhtml);
                 }, function() {
                     $( "#infopanel" ).html("");
                 }
               );
+			  
+	  		  $container.isotope({
+	  		    // options
+	  		    itemSelector: '.drag-item',
+				  layoutMode: 'vertical'		 
+				 
+	  		  });
 
             //console.log(`${result.values} .`);
             console.log(`${numRows} rows retrieved.`);
@@ -124,33 +143,94 @@ function generateReport() {
     const doc = new jsPDF();
     let yo = 40;
 
-    doc.setFontSize(30);
-    doc.text("Evaluation Framework", 10, 20);
-    doc.setFontSize(20);
-    doc.setFont(doc.getFont().fontName, "italic");
-    doc.text("[Add title page details here]", 10, 40);
-    doc.setFont(doc.getFont().fontName, "normal");
-
-    doc.addPage();
-    doc.setFontSize(20);
-    doc.text("Behavioural Indicators", 10, 20);
+    doc.setFontSize(13);
+	doc.setTextColor(28,171,226);
+	doc.setFont(doc.getFont().fontName, "bold");
+    doc.text("Behavioural Indicators", 20, 20);
     generateIndicators(doc, $('#drag-1'));
 
     doc.addPage();
-    doc.setFontSize(20);
-    doc.text("Individual Indicators", 10, 20);
-    
+    doc.setFontSize(13);
+	doc.setTextColor(28,171,226);
+	doc.setFont(doc.getFont().fontName, "bold");
+    doc.text("Individual Indicators", 20, 20);   
     generateIndicators(doc, $('#drag-2'));
 
     doc.addPage();
-    doc.setFontSize(20);
-    doc.text("Relational / Institutional / Societal Indicators", 10, 20);
-    
+    doc.setFontSize(13);
+	doc.setTextColor(28,171,226);
+	doc.setFont(doc.getFont().fontName, "bold");
+    doc.text("Relational / Institutional / Societal Indicators", 20, 20);
     generateIndicators(doc, $('#drag-3'));
-    doc.save("Evaluation-Framework-2020.pdf");
+	
+	const arrayBuffer = doc.output('arraybuffer');
+	
+	mergePages(arrayBuffer);
+	
+    // doc.save("Evaluation-Framework-2020.pdf");
 }
 
+// function to save byte array as pdf
+function saveByteArray(reportName, byte) {
+    var blob = new Blob([byte], {type: "application/pdf"});
+    var link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    var fileName = reportName;
+    link.download = fileName;
+    link.click();
+};
+
+async function mergePages(myBuffer) {
+	
+	// attempt to merge 2 pdfs client side
+	const mergedPdf = await PDFDocument.create();
+	
+	// load the static pdf 
+	const url1 = 'static.pdf';
+	
+	// when we load it, convert to array buffer
+	const staticBytes = await fetch(url1).then(res => res.arrayBuffer());
+	
+	// ok load it 
+	const staticPDF = await PDFDocument.load(staticBytes);
+	
+	// how many pages does it have
+	const copiedPages = await mergedPdf.copyPages(staticPDF, staticPDF.getPageIndices());
+	
+	// add each page to the merged PDF
+  	copiedPages.forEach((page) => {
+    console.log('page', page.getWidth(), page.getHeight());
+    mergedPdf.addPage(page);
+    });
+	
+	
+	
+	// dynamic buffer
+	const dynamicBytes = myBuffer;
+	
+	// ok load it 
+	const dynamicPDF = await PDFDocument.load(dynamicBytes);
+	
+	// how many pages does it have
+	const dynamicPages = await mergedPdf.copyPages(dynamicPDF, dynamicPDF.getPageIndices());
+	
+	// add each page to the merged PDF
+  	dynamicPages.forEach((page) => {
+    console.log('page', page.getWidth(), page.getHeight());
+    mergedPdf.addPage(page);
+    });
+		
+
+	
+	// save the merged PDF
+	const mergedPdfFile = await mergedPdf.save();
+	
+	saveByteArray("My Evaluation Framework.pdf", mergedPdfFile);
+	
+};
+
 function generateIndicators(doc, element) {
+	doc.setTextColor(51,51,51);
     let initialYOffset = 40;
     let yo = initialYOffset;
     let indicatorsPerPage  = 4;
@@ -176,32 +256,32 @@ function generateIndicators(doc, element) {
             counter = 0;
         }
         doc.setFontSize(12);
-        doc.text(value.innerText, 10, yo);
+        doc.text(value.innerText, 20, yo);
 
         doc.setFontSize(10);
         yo += 6;
         doc.setFont(doc.getFont().fontName, "bold");
-        doc.text("Pros: ", 10, yo);
+        doc.text("Pros: ", 20, yo);
         doc.setFont(doc.getFont().fontName, "normal");
         doc.text(plus.innerText, 50, yo);
         yo += 6;
         doc.setFont(doc.getFont().fontName, "bold");
-        doc.text("Cons: ", 10, yo);
+        doc.text("Cons: ", 20, yo);
         doc.setFont(doc.getFont().fontName, "normal");
         doc.text(minus.innerText, 50, yo);
         yo += 6;
         doc.setFont(doc.getFont().fontName, "bold");
-        doc.text("Recommendation: ", 10, yo);
+        doc.text("Recommendation: ", 20, yo);
         doc.setFont(doc.getFont().fontName, "normal");
         doc.text(recommend.innerText, 50, yo);
         yo += 6;
         doc.setFont(doc.getFont().fontName, "bold");
-        doc.text("Reference: ", 10, yo);
+        doc.text("Reference: ", 20, yo);
         doc.setFont(doc.getFont().fontName, "normal");
         doc.text(cite.innerText, 50, yo);
         yo += 6;
         doc.setFont(doc.getFont().fontName, "bold");
-        doc.text("Measures: ", 10, yo);
+        doc.text("Measures: ", 20, yo);
         doc.setFont(doc.getFont().fontName, "normal");
         
         for (let i = 0; i < measuresText.length; i++) {
@@ -212,7 +292,7 @@ function generateIndicators(doc, element) {
             
             for (let j = 0; j < len; j += reflow) {
                 doc.text(mt.substring(j, j+reflow), 50, yo);
-                yo += 2;
+                yo += 5
             }
         }
         

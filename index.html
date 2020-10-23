@@ -6,24 +6,302 @@
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
+	<script src="jquery.min.js"></script>	
+	
+	<script src="isotope.pkgd.min.js"></script>
+	
+	
+	<script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.js" type="text/javascript"></script>
+	
+	<script src="https://cdn.jsdelivr.net/npm/smartwizard@5/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
+
+	
 	<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/45226/dragula.min.js"></script>
 	
-
+	<link rel="stylesheet" href="smart_wizard.css" />
 	<link rel="stylesheet" href="style.css" />
 	<title>Evaluate Prototype</title>
 	
 	</head>
 	<body>
+		
+
+		
+		
 <section class="intro">
 	<h1>Evaluate It!</h1>
 	<h4>Build Your Own Online Safety Evaluation Scheme</h4>
-	<p>Smaller organisations should select <b>at least 2 indicators</b> at each scale, larger agencies with more resources should select <b>at least 3</b>.</p>
-	<p>Click <a href="#" onclick="generateReport();">Generate Report</a> when you're done.</p>
+	<p class="step1">Start by selecting the topic, targets, and participants in your project.</p>
+	<p class="step2">Great! Now drag and drop indicators to the Micro, Meso, and Macro panels to build your own evaluation framework.</p>
+	<p class="step3">When you're finished, generate a PDF of your custom indicators and some best practices. 
+		<button type="button" id="generatereport" class="generatereport" onclick="generateReport()">Generate Report</button>
+	</p>
 </section>
 
 <section class="report-area">
     <div class="report-fixed">Hello World!</div>
 </section>
+
+		<!-- wizard for setting up framework -->
+    <div id="smartwizard">
+        <ul class="nav">
+           <li>
+               <a class="nav-link" href="#step-1">
+                  Topic
+               </a>
+           </li>
+           <li>
+               <a class="nav-link" href="#step-2">
+                  Targeting
+               </a>
+           </li>
+           <li>
+               <a class="nav-link" href="#step-3">
+                  Working With
+               </a>
+           </li>
+           <li>
+               <a class="nav-link" href="#step-4">
+                  Theory of Change
+               </a>
+           </li>
+        </ul>
+     
+        <div class="tab-content">
+           <div id="step-1" class="tab-pane" role="tabpanel">
+			   
+		  		<fieldset>
+
+					<p>Which topic does your programme focus on?</p>
+					
+					<p>Cyberbullying is a repeated series of aggressive, intentional acts, conducted through digital platforms and devices, that inflicts willful harm on an individual.</p>
+					
+					<p>Online Grooming is a process where an adult uses digital media and platforms to befriend a minor and prepare them for a sexually abusive relationship.</p>
+					
+		  	    	<div><input type="checkbox" id="both" name="topic" value="both">
+		  	    	<label for="both">Both</label></div>
+		
+		  	    	<div><input type="checkbox" id="cyberbullying" name="topic" value="cyberbullying">
+		  	    	<label for="cyberbullying">Cyberbullying</label></div>
+
+		  	   	 	<div><input type="checkbox" id="grooming" name="topic" value="grooming">
+		  	    	<label for="grooming">Online Grooming</label></div>
+		  		</fieldset>
+				
+           </div>
+           <div id="step-2" class="tab-pane" role="tabpanel">
+              
+		  	<fieldset>
+		
+		  		<legend>Targeting:</legend>
+				
+				<p>What are the behaviours that your programme targets?</p>
+		
+		  		<div><input type="checkbox" id="awareness" name="targeting" value="awareness">
+		  		<label for="awareness">Awareness</label></div>
+		
+		  		<div><input type="checkbox" id="prevention" name="targeting" value="prevention">
+		  		<label for="prevention">Prevention</label></div>
+		
+		  		<div><input type="checkbox" id="reduction" name="targeting" value="reduction">
+		  		<label for="reduction">Reduction</label></div>
+		
+		  		<div><input type="checkbox" id="reporting" name="targeting" value="reporting">
+		  		<label for="reduction">Reporting</label></div>
+		
+		  		<div><input type="checkbox" id="managing" name="targeting" value="managing">
+		  		<label for="managing">Managing</label></div>
+		
+		  		<div><input type="checkbox" id="response" name="targeting" value="response">
+		  		<label for="reduction">Response</label></div>
+		
+		  	</fieldset>
+			  
+           </div>
+           <div id="step-3" class="tab-pane" role="tabpanel">
+              
+		  	<fieldset>
+		
+		  		<p>Who are the groups, institutions, or companies that your programme will work with?</p>
+	
+		  		<div><input type="checkbox" id="individuals" name="involving" value="individuals">
+		  		<label for="individuals">Individuals</label></div>
+		
+		  		<div><input type="checkbox" id="communities" name="involving" value="communities">
+		  		<label for="communities">Communities</label></div>
+		
+		  		<div><input type="checkbox" id="peergroups" name="involving" value="peer groups">
+		  		<label for="peergroups">Peer Groups</label></div>
+		
+		  		<div><input type="checkbox" id="schools" name="involving" value="schools">
+		  		<label for="schools">Schools</label></div>
+		
+		  		<div><input type="checkbox" id="ngocso" name="involving" value="NGOs and CSOs">
+		  		<label for="ngocso">NGOs / CSOs</label></div>
+		
+		  		<div><input type="checkbox" id="techproviders" name="involving" value="tech providers">
+		  		<label for="techproviders">Tech Providers</label></div>
+		
+		  	</fieldset>
+			  
+			  
+           </div>
+           <div id="step-4" class="tab-pane" role="tabpanel">
+			   
+			   <p>What Theory of Change are you interested in using?</p>
+              
+		  	<fieldset>
+		<p>A Theory of Change aims to provide a rich explanatory account of behaviour: what leads to a certain behaviour, what its effects are, how it changes over time, and it might be influenced. Since a ToC is not an "abstract" theory, but rather a pragmatic framework illustrating the precise linkages between intervention and change, a project may deploy multiple theories in one intervention.</p>
+				
+				<p>In <b>Ecological Systems Theory</b>, Brofenbrenner (1981) described five systems of interaction and development from childhood. An evaluation framework using this theory would identify measures of change at individual, aggregate (i.e. peer group), family, and school levels.</p>
+				
+				<p><b>Empowerment Theory</b> focuses on victims but may also include potential perpetrators as well as bystanders. According to this theory, individual, group, and community resources need to be made stronger in order to allow victims to exert a greater degree of control in their environments.</p> 
+				
+				<p><b>General Strain Theory</b> emphasises the perpetrator rather than victim (Paez 2016). Within this theoretical approach, violence is the outcome of diverse strains, which may be psychological, institutional, environmental, and so on.</p>
+				
+				<p><b>Nudge Theory</b>, in its purest form, suggests behaviour responds to a combination of cognitive shifts and “nudges” – incentives, prods or suggestions introduced into an environment.</p>
+	
+		  		<div><input type="checkbox" id="ecological" name="theory" value="ecological">
+		  		<label for="ecological">Ecological Systems</label></div>
+		
+		  		<div><input type="checkbox" id="empowerment" name="theory" value="empowerment">
+		  		<label for="empowerment">Empowerment</label></div>
+		
+		  		<div><input type="checkbox" id="strain" name="theory" value="strain">
+		  		<label for="strain">Strain Theory</label></div>
+		
+		  		<div><input type="checkbox" id="nudge" name="theory" value="nudge">
+		  		<label for="nudge">Nudge Theory</label></div>
+				
+		
+		  	</fieldset>
+			  
+			  
+           </div>
+        </div>
+    </div>
+
+
+
+<!-- filters for indicators -->
+<div class="filter" id="options">
+	
+	<form autocomplete="off">
+		
+		<h2>Setup</h2>
+	
+	<fieldset>
+		
+		<legend>Topic:</legend>
+		
+		<div class="option-set" data-group="topic">
+			
+		    <input type="checkbox" id="topic-all" name="topic" class="all" checked />
+		    <label for="topic-all">Both</label><br/>
+		
+	   	 	<input type="checkbox" id="cyberbullying" name="topic" value=".cyberbullying" />
+	    	<label for="cyberbullying">Cyberbullying</label><br/>
+
+	  	  	<input type="checkbox" id="grooming" name="topic" value=".grooming" />
+	    	<label for="grooming">Online Grooming</label>
+		
+		</div>
+		
+	</fieldset>
+	
+	<fieldset>
+		
+		<legend>Targeting:</legend>
+		
+		<div class="option-set" data-group="targeting">
+			
+		    <input type="checkbox" id="targeting-all" name="targeting" class="all" checked />
+		    <label for="targeting-all">All</label><br/>
+		
+		<input type="checkbox" id="awareness" name="targeting" value=".awareness" />
+		<label for="awareness">Awareness</label><br/>
+		
+		<input type="checkbox" id="prevention" name="targeting" value=".prevention" />
+		<label for="prevention">Prevention</label><br/>
+		
+		<input type="checkbox" id="reduction" name="targeting" value=".reduction" />
+		<label for="reduction">Reduction</label><br/>
+		
+		<input type="checkbox" id="reporting" name="targeting" value=".reporting" />
+		<label for="reduction">Reporting</label><br/>
+		
+		<input type="checkbox" id="managing" name="targeting" value=".managing" />
+		<label for="managing">Managing</label><br/>
+		
+		<input type="checkbox" id="response" name="targeting" value=".response" />
+		<label for="reduction">Response</label>
+		
+		</div>
+		
+	</fieldset>
+	
+	<fieldset>
+		
+		<legend>Working With:</legend>
+		
+		<div class="option-set" data-group="involving">
+			
+		 <input type="checkbox" id="involving-all" name="involving" class="all" checked />
+		 <label for="involving-all">All</label><br/>
+	
+		<input type="checkbox" id="individuals" name="involving" value=".individuals" />
+		<label for="individuals">Individuals</label><br/>
+		
+		<input type="checkbox" id="communities" name="involving" value=".communities" />
+		<label for="communities">Communities</label><br/>
+		
+		<input type="checkbox" id="peergroups" name="involving" value=".peergroups" />
+		<label for="peergroups">Peer Groups</label><br/>
+		
+		<input type="checkbox" id="schools" name="involving" value=".schools" />
+		<label for="schools">Schools</label><br/>
+		
+		<input type="checkbox" id="ngocso" name="involving" value=".ngos" />
+		<label for="ngocso">NGOs / CSOs</label><br/>
+		
+		<input type="checkbox" id="techproviders" name="involving" value=".techproviders" />
+		<label for="techproviders">Tech Providers</label>
+		
+		</div>
+		
+	</fieldset>
+	
+	
+	<fieldset>
+		
+		<legend>Theory of Change:</legend>
+		
+		<div class="option-set" data-group="theory">
+			
+    <input type="checkbox" id="theory-all" name="theory" class="all" checked />
+    <label for="theory-all">All</label><br/>	
+	
+		<input type="checkbox" id="ecological" name="theory" value=".ecological" />
+		<label for="ecological">Ecological Systems</label><br/>
+		
+		<input type="checkbox" id="empowerment" name="theory" value=".empowerment" />
+		<label for="empowerment">Empowerment</label><br/>
+			
+		<input type="checkbox" id="strain" name="theory" value=".strain" />
+		<label for="strain">Strain Theory</label><br/>
+		
+		<input type="checkbox" id="nudge" name="theory" value=".nudge" />
+		<label for="nudge">Nudge Theory</label>
+		
+		</div>
+		
+	</fieldset>
+
+
+</form>
+	
+</div>
+<!-- end filter block -->
 
 <div class="drag-container">
 	<ul class="drag-list">
@@ -36,8 +314,6 @@
 				<h4>Behavioural - clicks, expressions, posts etc</h4>
 			</span>
 				
-			<div class="drag-options" id="options1"></div>
-			
 			<ul class="drag-inner-list" id="drag-1">
 			</ul>
 		</li>
@@ -50,7 +326,6 @@
 				<h4>Individual - attitudes, knowledge, beliefs</h4>
 			</span>
 
-			<div class="drag-options" id="options2"></div>
 			<ul class="drag-inner-list" id="drag-2">
 
 			</ul>
@@ -62,18 +337,15 @@
 			</span>
 			<span class="drag-column-header">
 				<h4>Relational / Institutional / Societal - policies, laws, norms, relationships</h4>
-
 			</span>
-			<div class="drag-options" id="options3"></div>
 			<ul class="drag-inner-list" id="drag-3">
 			</ul>
 		</li>
 		<li class="drag-column drag-column-approved">
 			<span class="drag-column-header">
 				<h2>Indicators</h2>
-
 			</span>
-			<div class="drag-options" id="options4"></div>
+			<div class="scrollme">
 			<ul class="drag-inner-list" id="drag-4">
 				<!-- <li class="drag-item micro">
 					<h4>Scale of School Aggression</h4>
@@ -132,6 +404,7 @@
 				</li> -->
 				
 			</ul>
+		</div>
 		</li>
 	</ul>
 	
@@ -152,7 +425,195 @@
 
 <footer>
 	
-	<script src="jquery.min.js"></script>	
+
+	<script>
+
+
+	  // filter using isotope
+	  var $container;
+	  var filters = {};
+
+
+		
+	    $(document).ready(function(){
+			
+     
+		  
+		/* setup wizard */
+		  function finishWizard() {
+		  	  $("#smartwizard").hide();
+			  $("#infopanel").show();
+			  $(".drag-container").show();
+			  $(".filter").show();
+			  $(".step1").hide();		
+			  $(".step2").show();	
+		  }
+		  
+		  // skip wizard while testing
+		  // finishWizard();
+		  //$(".filter").show();
+		  
+	      // 
+	      var btnFinish = $('<button></button>').text('Finish')
+                                  .addClass('btn btn-info sw-btn-group-extra d-none')
+                                  .on('click', finishWizard);
+		  
+		  var wizard = $('#smartwizard').smartWizard({
+		  transition: {
+		      animation: 'slide-horizontal', // Effect on navigation, none/fade/slide-horizontal/slide-vertical/slide-swing
+		      speed: '400', // Transion animation speed
+		      easing:'' // Transition animation easing. Not supported without a jQuery easing plugin
+		  },
+		  toolbarSettings: {
+		          toolbarExtraButtons: [btnFinish] // Extra buttons to show on toolbar, array of jQuery input/buttons elements
+
+		      }
+	  		});
+			
+		  // show finish button on final step
+		    $(wizard).on("leaveStep", function(e, anchorObject, stepNumber, stepDirection) {
+		      if(stepDirection == "3") //here is the final step: Note: 0,1,2
+		      {
+		        $('.sw-btn-group-extra').removeClass('d-none');
+		      }
+		      else
+		      {
+		        $('.sw-btn-group-extra').addClass('d-none');
+		      }
+		  });
+		  
+
+
+		  $container = $('#drag-4');
+	
+
+		  
+			
+		    // do stuff when checkbox change
+		    $('#options').on( 'change', function( jQEvent ) {
+		      var $checkbox = $( jQEvent.target );
+		      manageCheckbox( $checkbox );
+
+		      var comboFilter = getComboFilter( filters );
+			  
+			  console.log(comboFilter);
+
+		      $container.isotope({ filter: comboFilter });
+
+		    });
+			
+			// change checkboxes in filters when wizard options are selected
+		    $('.tab-pane').on( 'change', function( jQEvent ) {
+		      var $checkbox = $( jQEvent.target );
+			  var thisid = $checkbox.attr("id");
+			  console.log(thisid);
+			  
+			  var checkbox = $checkbox[0];
+			  var bool = checkbox.checked;
+			  
+			  var mystr = "#options #"+thisid;
+			  console.log(mystr);
+			  
+			  $(mystr).prop("checked", bool).trigger("change");
+			  
+		  });
+
+			
+
+		  
+		  
+	  });
+
+
+
+	  function getComboFilter( filters ) {
+	    var i = 0;
+	    var comboFilters = [];
+	    var message = [];
+
+	    for ( var prop in filters ) {
+	      message.push( filters[ prop ].join(' ') );
+	      var filterGroup = filters[ prop ];
+	      // skip to next filter group if it doesn't have any values
+	      if ( !filterGroup.length ) {
+	        continue;
+	      }
+	      if ( i === 0 ) {
+	        // copy to new array
+	        comboFilters = filterGroup.slice(0);
+	      } else {
+	        var filterSelectors = [];
+	        // copy to fresh array
+	        var groupCombo = comboFilters.slice(0); // [ A, B ]
+	        // merge filter Groups
+	        for (var k=0, len3 = filterGroup.length; k < len3; k++) {
+	          for (var j=0, len2 = groupCombo.length; j < len2; j++) {
+	            filterSelectors.push( groupCombo[j] + filterGroup[k] ); // [ 1, 2 ]
+	          }
+
+	        }
+	        // apply filter selectors to combo filters for next group
+	        comboFilters = filterSelectors;
+	      }
+	      i++;
+	    }
+
+	    var comboFilter = comboFilters.join(', ');
+	    return comboFilter;
+	  }
+
+	  function manageCheckbox( $checkbox ) {
+	    var checkbox = $checkbox[0];
+
+	    var group = $checkbox.parents('.option-set').attr('data-group');
+	    // create array for filter group, if not there yet
+	    var filterGroup = filters[ group ];
+	    if ( !filterGroup ) {
+	      filterGroup = filters[ group ] = [];
+	    }
+
+	    var isAll = $checkbox.hasClass('all');
+	    // reset filter group if the all box was checked
+	    if ( isAll ) {
+	      delete filters[ group ];
+	      if ( !checkbox.checked ) {
+	        checkbox.checked = 'checked';
+	      }
+	    }
+		
+		
+	    // index of
+	    var index = $.inArray( checkbox.value, filterGroup );
+
+	    if ( checkbox.checked ) {
+	      var selector = isAll ? 'input' : 'input.all';
+	      $checkbox.siblings( selector ).removeAttr('checked');
+		 $checkbox.siblings( selector ).prop("checked", false);
+
+
+	      if ( !isAll && index === -1 ) {
+	        // add filter to group
+	        filters[ group ].push( checkbox.value );
+	      }
+
+	    } else if ( !isAll ) {
+	      // remove filter from group
+	      filters[ group ].splice( index, 1 );
+	      // if unchecked the last box, check the all
+	      if ( !$checkbox.siblings('[checked]').length ) {
+	        $checkbox.siblings('input.all').attr('checked', 'checked');
+	      }
+	    }
+
+	  }
+		
+		  
+		  
+		  
+     
+
+	 
+	</script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.1.1/jspdf.umd.min.js"></script>
 	<script src="data-loader.js"></script>	
     <script async defer src="https://apis.google.com/js/api.js"
