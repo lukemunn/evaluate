@@ -6,7 +6,7 @@ const { jsPDF } = window.jspdf;
 CLIENT_ID = '559576953817-0drd9ji65as2gc750tpvuj5hcfglsrod.apps.googleusercontent.com';
 API_KEY = 'AIzaSyDJqo5JL9MxUqHBVdkAn6DhgKcfGaVam4w';
 SPREADSHEET_ID = '1NLdHWSQjWVZKCyQxjDx3jK9FbfFGvl5YGCxFSJnN1lQ';
-INDICATOR_RANGE = "'Matrix of possible indicators & measures'!A3:Q100"
+INDICATOR_RANGE = "'Matrix of possible indicators & measures'!A3:U110"
 
 // Dynamic loading?
 // $.get('/credentials.json').then((response) => {
@@ -24,8 +24,14 @@ var SCOPES = "https://www.googleapis.com/auth/spreadsheets.readonly";
 
 
 // Global variable for results - use for look-ups
-let indicators = null;
-
+let indicators = {};
+let selectedIndicators = [];
+const THEORIES = [
+    'ecological', 
+    'empowerment', 
+    'strain', 
+    'nudging'
+];
 
 /**
  *  On load, called to load the auth2 library and API client library.
@@ -53,7 +59,6 @@ function initClient() {
             range: INDICATOR_RANGE
           }).then((response) => {
             let result = response.result;
-            indicators = result;
             let numRows = result.values ? result.values.length : 0;
 
             for (let i = 0; i < result.values.length; i++) {
@@ -74,27 +79,45 @@ function initClient() {
                 let candidate = row[13];
                 let level = row[14].toLowerCase();
                 let cite = row[12];
-				var involving = row[15];
-				var targeting = row[16];
+				let involving = row[15];
+				let targeting = row[16];
+                let theory = row[18];
 
+                // Generate some random theories for now
+                theory = (theory === undefined || theory === '') ? THEORIES[Math.floor(Math.random() * THEORIES.length)] : theory;
+                console.log(theory)
                 if (candidate == 'Y') {
+                    let indId = `indicator-${i+1}`;
                     $('#drag-5').append( 
-                        `<li id="indicator-${i+1}" class="drag-item ${issue} ${level} ${involving} ${targeting}">
+                        `<li id="${indId}" class="drag-item ${issue} ${level} ${involving} ${targeting}">
                             <h4>${name}</h4>
                             <span class="desc">${desc}</span>
                             <span class="plus">${plus}</span>
                             <span class="minus">${minus}</span>
-                            <span class="recommend">${recommend}</span>
+                            <span class="recommendrecommend">${recommend}</span>
                             <span class="cite">${cite}</span>
                         </li>`
                     );
+                    indicators[indId] = {
+                        id: indId,
+                        name: name,
+                        issue: issue,
+                        level: level,
+                        involving: involving,
+                        targeting: targeting,
+                        desc: desc,
+                        plus: plus,
+                        minus: minus,
+                        recommend: recommend,
+                        cite: cite,                       
+                        theory: theory,                       
+                    };
                 }
             }
 			
 			$(document).on({
                 mouseenter: function () {
                     //stuff to do on mouse enter
-                    console.log("rollover");
                     var innerhtml = $( this ).html();
                     $( "#infopanel" ).html(innerhtml);
                 },

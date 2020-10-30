@@ -1,4 +1,5 @@
 
+
 var containers = new Array();
 containers.push(document.getElementById('drag-1'));
 containers.push(document.getElementById('drag-2'));
@@ -61,6 +62,11 @@ drake.on('dragend', function(el) {
 	$(".step2").hide();
 	$(".step3").show();
 
+	// Regenerate heatmap
+	console.log(el.id);
+	selectedIndicators.push(indicators[el.id]);
+	generateHeatmap();
+
 });
 
 // Another dragula instance 
@@ -75,7 +81,7 @@ wyvern.on('remove', function(el, container, source) {
 $(document).on({
     mouseenter: function () {
         //stuff to do on mouse enter
-        console.log("rollover");
+        // console.log("rollover");
         var innerhtml = $( this ).html();
 		$( "#infopanel" ).html(innerhtml);
     },
