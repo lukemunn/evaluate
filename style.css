@@ -347,8 +347,10 @@ ul.drag-inner-list#drag-4 {
 .filter {
 	width: 200px;
 	height: 640px;
-	background-color: #00B961;
-	color: white;
+	background-color: #cecece;
+	/* background-color: #00B961; */
+	color: black;
+	/* color: white; */
 	font-size: 13px;
 	padding: 5px;
 	margin: 0;

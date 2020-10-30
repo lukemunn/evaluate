@@ -78,8 +78,8 @@ function initClient() {
 				var targeting = row[16];
 
                 if (candidate == 'Y') {
-                    $('#drag-4').append( 
-                        `<li class="drag-item ${issue} ${level} ${involving} ${targeting}">
+                    $('#drag-5').append( 
+                        `<li id="indicator-${i+1}" class="drag-item ${issue} ${level} ${involving} ${targeting}">
                             <h4>${name}</h4>
                             <span class="desc">${desc}</span>
                             <span class="plus">${plus}</span>
@@ -91,22 +91,26 @@ function initClient() {
                 }
             }
 			
-			
-            $( ".drag-item" ).hover(
-                function() {
+			$(document).on({
+                mouseenter: function () {
+                    //stuff to do on mouse enter
+                    console.log("rollover");
                     var innerhtml = $( this ).html();
-                  $( "#infopanel" ).html(innerhtml);
-                }, function() {
+                    $( "#infopanel" ).html(innerhtml);
+                },
+                mouseleave: function () {
+                    //stuff to do on mouse leave
                     $( "#infopanel" ).html("");
                 }
-              );
+            }, ".drag-item");
+
 			  
-	  		  $container.isotope({
-	  		    // options
-	  		    itemSelector: '.drag-item',
-				  layoutMode: 'vertical'		 
-				 
-	  		  });
+            $container.isotope({
+                // options
+                itemSelector: '.drag-item',
+                layoutMode: 'vertical'		 
+                
+            });
 
             //console.log(`${result.values} .`);
             console.log(`${numRows} rows retrieved.`);
@@ -143,6 +147,7 @@ function generateReport() {
     const doc = new jsPDF();
     let yo = 40;
 
+    /*
     doc.setFontSize(13);
 	doc.setTextColor(28,171,226);
 	doc.setFont(doc.getFont().fontName, "bold");
@@ -162,7 +167,35 @@ function generateReport() {
 	doc.setFont(doc.getFont().fontName, "bold");
     doc.text("Relational / Institutional / Societal Indicators", 20, 20);
     generateIndicators(doc, $('#drag-3'));
-	
+    */
+
+    doc.setFontSize(13);
+    doc.setTextColor(28,171,226);
+    doc.setFont(doc.getFont().fontName, "bold");
+    doc.text("Awareness Indicators", 20, 20);
+    generateIndicators(doc, $('#drag-1'));
+
+    doc.addPage();
+    doc.setFontSize(13);
+    doc.setTextColor(28,171,226);
+    doc.setFont(doc.getFont().fontName, "bold");
+    doc.text("Prevention Indicators", 20, 20);   
+    generateIndicators(doc, $('#drag-2'));
+
+    doc.addPage();
+    doc.setFontSize(13);
+    doc.setTextColor(28,171,226);
+    doc.setFont(doc.getFont().fontName, "bold");
+    doc.text("Management Indicators", 20, 20);
+    generateIndicators(doc, $('#drag-3'));
+
+    doc.addPage();
+    doc.setFontSize(13);
+    doc.setTextColor(28,171,226);
+    doc.setFont(doc.getFont().fontName, "bold");
+    doc.text("Wellbeing Indicators", 20, 20);
+    generateIndicators(doc, $('#drag-4'));
+   
 	const arrayBuffer = doc.output('arraybuffer');
 	
 	mergePages(arrayBuffer);
@@ -229,8 +262,33 @@ async function mergePages(myBuffer) {
 	
 };
 
+function printAndOffset(doc, str, reflow, xo, yo) {
+
+    // Re-flow every 80 characters, or the previous space.
+    let len = str.length;
+    let offset = reflow;
+
+    for (let j = 0; j < len; j += offset) {
+
+        let tmp = str.substring(j, j + reflow);
+        let lastSpace = tmp.lastIndexOf(' ');
+        if (lastSpace > 0 && len > j + reflow) {
+            tmp = tmp.substring(0, lastSpace);
+            offset = lastSpace + 1;
+            yo += 5;
+        }
+            
+        doc.text(tmp, xo, yo);
+        
+    }
+
+    return yo;
+
+}
+
 function generateIndicators(doc, element) {
-	doc.setTextColor(51,51,51);
+    
+    doc.setTextColor(51,51,51);
     let initialYOffset = 40;
     let yo = initialYOffset;
     let indicatorsPerPage  = 4;
@@ -243,7 +301,8 @@ function generateIndicators(doc, element) {
         let recommend = $(value).find('span.recommend')[0];
         let cite = $(value).find('span.cite')[0];
 
-        let reflow = 80;
+        let reflow = 100;
+        let fieldOffset = 60;
         let longestLine = Math.max(...measuresText.map((mt) => mt.length));
         let lines = measuresText.map((mt) => mt.length / 80).reduce((acc, curr) => acc + curr, 0);
         // 102 = 16 * 5 fields + 22
@@ -256,29 +315,38 @@ function generateIndicators(doc, element) {
             counter = 0;
         }
         doc.setFontSize(12);
-        doc.text(value.innerText, 20, yo);
+        doc.setFont(doc.getFont().fontName, "bold");
+        doc.text(value.innerText.toString(), 20, yo);
 
         doc.setFontSize(10);
         yo += 6;
         doc.setFont(doc.getFont().fontName, "bold");
         doc.text("Pros: ", 20, yo);
         doc.setFont(doc.getFont().fontName, "normal");
-        doc.text(plus.innerText, 50, yo);
+        //doc.text(plus.innerText.toString(), fieldOffset, yo);
+        yo = printAndOffset(doc, plus.innerText.toString(), reflow, fieldOffset, yo);
+
         yo += 6;
         doc.setFont(doc.getFont().fontName, "bold");
         doc.text("Cons: ", 20, yo);
         doc.setFont(doc.getFont().fontName, "normal");
-        doc.text(minus.innerText, 50, yo);
+        // doc.text(minus.innerText.toString(), fieldOffset, yo);
+        yo = printAndOffset(doc, minus.innerText.toString(), reflow, fieldOffset, yo);
+
         yo += 6;
         doc.setFont(doc.getFont().fontName, "bold");
         doc.text("Recommendation: ", 20, yo);
         doc.setFont(doc.getFont().fontName, "normal");
-        doc.text(recommend.innerText, 50, yo);
+        // doc.text(recommend.innerText.toString(), fieldOffset, yo);
+        yo = printAndOffset(doc, recommend.innerText.toString(), reflow, fieldOffset, yo);
+
         yo += 6;
         doc.setFont(doc.getFont().fontName, "bold");
         doc.text("Reference: ", 20, yo);
         doc.setFont(doc.getFont().fontName, "normal");
-        doc.text(cite.innerText, 50, yo);
+        // doc.text(cite.innerText.toString(), fieldOffset, yo);
+        yo = printAndOffset(doc, cite.innerText.toString(), reflow, fieldOffset, yo);
+
         yo += 6;
         doc.setFont(doc.getFont().fontName, "bold");
         doc.text("Measures: ", 20, yo);
@@ -287,13 +355,8 @@ function generateIndicators(doc, element) {
         for (let i = 0; i < measuresText.length; i++) {
             let mt = measuresText[i];
 
-            // Re-flow every 80 characters
-            let len = mt.length;
-            
-            for (let j = 0; j < len; j += reflow) {
-                doc.text(mt.substring(j, j+reflow), 50, yo);
-                yo += 5
-            }
+            yo = printAndOffset(doc, mt, reflow, fieldOffset, yo);
+
         }
         
         yo += 8;
