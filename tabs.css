@@ -1,0 +1,95 @@
+[data-tabs],
+[data-panes] {
+  --color: #000; }
+
+[data-tabs] {
+  background: white;
+  border-bottom: none;
+  overflow-x: auto;
+  display: flex; 
+
+}
+  [data-tabs] > [role="tab"] {
+    all: unset;
+    padding: .75rem 1.5rem;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    font-weight: normal;
+    color: #ccc;
+    border-bottom: 4px solid transparent;
+    outline: none; 
+	cursor: pointer;
+}
+    [data-tabs] > [role="tab"]:hover {
+      background: rgba(28, 171, 226, 0.1);
+	  color: #666; 
+  }
+    [data-tabs] > [role="tab"]:active {
+     background: rgba(28, 171, 226, 0.3); 
+	  color: #1CABE2; 
+  }
+    [data-tabs] > [role="tab"]:focus {
+      border: 1px dotted rgba(28, 171, 226, 0.5);
+	  color: #1CABE2;  
+  }
+    [data-tabs] > [role="tab"][aria-selected="true"] {
+      background: #fff;
+	  color: #1CABE2;
+	  border-bottom: 4px solid #1CABE2;  
+  }
+      [data-tabs] > [role="tab"][aria-selected="true"]:focus {
+        border: 1px dotted rgba(0, 0, 0, 0.5); 
+	}
+
+.topictabs {
+	background: #1CABE2;
+	text-transform: uppercase;
+	border: none;
+	align-items: center;
+	  justify-content: center;
+}
+.topictabs > [role="tab"] {
+		border-bottom: 4px solid #1CABE2;
+}
+.topictabs > [role="tab"]:hover {
+      background: rgba(255, 255, 255, 0.2);
+  }
+.topictabs > [role="tab"][aria-selected="true"] {
+      background: none;
+	  color: white; 
+	  border-bottom: 4px solid white;
+	  font-weight: bold;
+}
+/* toc label gets same styling to sit nicely alongside */
+.toc-label {
+padding: .75rem 1.5rem;
+border-bottom: 4px solid transparent;
+width: 150px;
+float: left;
+font-weight: normal;
+color: #999;
+}
+
+[data-panes] {
+  border-top: none; }
+  [data-panes] > * {
+    background: #fff;
+    padding: 2rem;
+    font-weight: 600;
+    outline: none;
+}
+    [data-panes] > *:focus {
+       }
+    @media screen and (max-width: 460px) {
+      [data-panes] > * {
+        padding: 1rem; } }
+		
+.topicpanes {
+	background: white;
+	border: none;
+}	
+.topicpanes > *:focus {
+	border: none;
+}	
