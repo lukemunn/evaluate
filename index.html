@@ -144,51 +144,12 @@
 		
 	    $(document).ready(function(){
 			
-     
-		  
-		/* setup wizard */
-		  function finishWizard() {
-		  	  $("#smartwizard").hide();
+
 			  $("#infopanel").show();
 			  $(".drag-container").show();
 			  $(".filter").show();
 			  $(".step1").hide();		
 			  $(".step2").show();	
-		  }
-		  
-		  // skip wizard while testing
-		  finishWizard();
-		//   $(".filter").show();
-		  
-	      // 
-	      var btnFinish = $('<button></button>').text('Finish')
-                                  .addClass('btn btn-info sw-btn-group-extra d-none')
-                                  .on('click', finishWizard);
-		  
-		  var wizard = $('#smartwizard').smartWizard({
-		  transition: {
-		      animation: 'slide-horizontal', // Effect on navigation, none/fade/slide-horizontal/slide-vertical/slide-swing
-		      speed: '400', // Transion animation speed
-		      easing:'' // Transition animation easing. Not supported without a jQuery easing plugin
-		  },
-		  toolbarSettings: {
-		          toolbarExtraButtons: [btnFinish] // Extra buttons to show on toolbar, array of jQuery input/buttons elements
-
-		      }
-	  		});
-			
-		  // show finish button on final step
-		    $(wizard).on("leaveStep", function(e, anchorObject, stepNumber, stepDirection) {
-		      if(stepDirection == "3") //here is the final step: Note: 0,1,2
-		      {
-		        $('.sw-btn-group-extra').removeClass('d-none');
-		      }
-		      else
-		      {
-		        $('.sw-btn-group-extra').addClass('d-none');
-		      }
-		  });
-		  
 
 
 		  $container = $('#drag-5');
