@@ -16,8 +16,6 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.1.1/jspdf.umd.min.js"></script>
 
-	<script src="https://cdn.jsdelivr.net/npm/smartwizard@5/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
-
 	
 	<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/45226/dragula.min.js"></script>
 	
@@ -33,7 +31,7 @@
 		
 <section class="intro">
 	<h1>Evaluate It!</h1>
-	<h4>Build Your Own Online Safety Evaluation Scheme</h4>
+	<h4>Online Safety Evalution Framework Generator</h4>
 	<p class="step1">Start by selecting the topic, targets, and participants in your project.</p>
 	<p class="step2">Great! Now drag and drop indicators to the Micro, Meso, and Macro panels to build your own evaluation framework.</p>
 	<p class="step3">When you're finished, generate a PDF of your custom indicators and some best practices. 
@@ -45,144 +43,7 @@
     <div class="report-fixed">Hello World!</div>
 </section>
 
-		<!-- wizard for setting up framework -->
-    <div id="smartwizard">
-        <ul class="nav">
-           <li>
-               <a class="nav-link" href="#step-1">
-                  Topic
-               </a>
-           </li>
-           <li>
-               <a class="nav-link" href="#step-2">
-                  Targeting
-               </a>
-           </li>
-           <li>
-               <a class="nav-link" href="#step-3">
-                  Working With
-               </a>
-           </li>
-           <li>
-               <a class="nav-link" href="#step-4">
-                  Theory of Change
-               </a>
-           </li>
-        </ul>
-     
-        <div class="tab-content">
-           <div id="step-1" class="tab-pane" role="tabpanel">
-			   
-		  		<fieldset>
-
-					<p>Which topic does your programme focus on?</p>
-					
-					<p>Cyberbullying is a repeated series of aggressive, intentional acts, conducted through digital platforms and devices, that inflicts willful harm on an individual.</p>
-					
-					<p>Online Grooming is a process where an adult uses digital media and platforms to befriend a minor and prepare them for a sexually abusive relationship.</p>
-					
-		  	    	<div><input type="checkbox" id="both" name="topic" value="both">
-		  	    	<label for="both">Both</label></div>
 		
-		  	    	<div><input type="checkbox" id="cyberbullying" name="topic" value="cyberbullying">
-		  	    	<label for="cyberbullying">Cyberbullying</label></div>
-
-		  	   	 	<div><input type="checkbox" id="grooming" name="topic" value="grooming">
-		  	    	<label for="grooming">Online Grooming</label></div>
-		  		</fieldset>
-				
-           </div>
-           <div id="step-2" class="tab-pane" role="tabpanel">
-              
-		  	<fieldset>
-		
-		  		<legend>Targeting:</legend>
-				
-				<p>What are the behaviours that your programme targets?</p>
-		
-		  		<div><input type="checkbox" id="awareness" name="targeting" value="awareness">
-		  		<label for="awareness">Awareness</label></div>
-		
-		  		<div><input type="checkbox" id="prevention" name="targeting" value="prevention">
-		  		<label for="prevention">Prevention</label></div>
-		
-		  		<div><input type="checkbox" id="reduction" name="targeting" value="reduction">
-		  		<label for="reduction">Reduction</label></div>
-		
-		  		<div><input type="checkbox" id="reporting" name="targeting" value="reporting">
-		  		<label for="reporting">Reporting</label></div>
-		
-		  		<div><input type="checkbox" id="managing" name="targeting" value="managing">
-		  		<label for="managing">Managing</label></div>
-		
-		  		<div><input type="checkbox" id="response" name="targeting" value="response">
-		  		<label for="response">Response</label></div>
-		
-		  	</fieldset>
-			  
-           </div>
-           <div id="step-3" class="tab-pane" role="tabpanel">
-              
-		  	<fieldset>
-		
-		  		<p>Who are the groups, institutions, or companies that your programme will work with?</p>
-	
-		  		<div><input type="checkbox" id="individuals" name="involving" value="individuals">
-		  		<label for="individuals">Individuals</label></div>
-		
-		  		<div><input type="checkbox" id="communities" name="involving" value="communities">
-		  		<label for="communities">Communities</label></div>
-		
-		  		<div><input type="checkbox" id="peergroups" name="involving" value="peer groups">
-		  		<label for="peergroups">Peer Groups</label></div>
-		
-		  		<div><input type="checkbox" id="schools" name="involving" value="schools">
-		  		<label for="schools">Schools</label></div>
-		
-		  		<div><input type="checkbox" id="ngocso" name="involving" value="NGOs and CSOs">
-		  		<label for="ngocso">NGOs / CSOs</label></div>
-		
-		  		<div><input type="checkbox" id="techproviders" name="involving" value="tech providers">
-		  		<label for="techproviders">Tech Providers</label></div>
-		
-		  	</fieldset>
-			  
-			  
-           </div>
-           <div id="step-4" class="tab-pane" role="tabpanel">
-			   
-			   <p>What Theory of Change are you interested in using?</p>
-              
-		  	<fieldset>
-		<p>A Theory of Change aims to provide a rich explanatory account of behaviour: what leads to a certain behaviour, what its effects are, how it changes over time, and it might be influenced. Since a ToC is not an "abstract" theory, but rather a pragmatic framework illustrating the precise linkages between intervention and change, a project may deploy multiple theories in one intervention.</p>
-				
-				<p>In <b>Ecological Systems Theory</b>, Brofenbrenner (1981) described five systems of interaction and development from childhood. An evaluation framework using this theory would identify measures of change at individual, aggregate (i.e. peer group), family, and school levels.</p>
-				
-				<p><b>Empowerment Theory</b> focuses on victims but may also include potential perpetrators as well as bystanders. According to this theory, individual, group, and community resources need to be made stronger in order to allow victims to exert a greater degree of control in their environments.</p> 
-				
-				<p><b>General Strain Theory</b> emphasises the perpetrator rather than victim (Paez 2016). Within this theoretical approach, violence is the outcome of diverse strains, which may be psychological, institutional, environmental, and so on.</p>
-				
-				<p><b>Nudge Theory</b>, in its purest form, suggests behaviour responds to a combination of cognitive shifts and “nudges” – incentives, prods or suggestions introduced into an environment.</p>
-	
-		  		<div><input type="checkbox" id="ecological" name="theory" value="ecological">
-		  		<label for="ecological">Ecological Systems</label></div>
-		
-		  		<div><input type="checkbox" id="empowerment" name="theory" value="empowerment">
-		  		<label for="empowerment">Empowerment</label></div>
-		
-		  		<div><input type="checkbox" id="strain" name="theory" value="strain">
-		  		<label for="strain">Strain Theory</label></div>
-		
-		  		<div><input type="checkbox" id="nudge" name="theory" value="nudge">
-		  		<label for="nudge">Nudge Theory</label></div>
-				
-		
-		  	</fieldset>
-			  
-			  
-           </div>
-        </div>
-    </div>
 
 
 
