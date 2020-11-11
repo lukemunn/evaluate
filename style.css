@@ -226,14 +226,15 @@ button {
 	display: none;
 }
 
+/* keep the classes on these divs but just style them all the same for now */
 .micro {
-	background:  #FB7D44;
+	background:  white;
 }
 .meso {
-	background: #2A92BF;
+	background:  white;
 }
 .macro {
-	background: #F4CE46;
+	background:  white;
 }
 
 /* info panel */

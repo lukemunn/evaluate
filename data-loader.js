@@ -97,7 +97,6 @@ function initClient() {
                             <span class="desc">${desc}</span>
                             <span class="plus">${plus}</span>
                             <span class="minus">${minus}</span>
-                            <span class="recommendrecommend">${recommend}</span>
                             <span class="cite">${cite}</span>
                         </li>`
                     );
