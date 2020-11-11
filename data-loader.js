@@ -60,6 +60,9 @@ function initClient() {
           }).then((response) => {
             let result = response.result;
             let numRows = result.values ? result.values.length : 0;
+			
+			// remove the loading text 
+			$('#indicators-list').html("");
 
             for (let i = 0; i < result.values.length; i++) {
                 let row = result.values[i];
@@ -88,7 +91,7 @@ function initClient() {
                 console.log(theory)
                 if (candidate == 'Y') {
                     let indId = `indicator-${i+1}`;
-                    $('#drag-5').append( 
+                    $('#indicators-list').append( 
                         `<li id="${indId}" class="drag-item ${issue} ${level} ${involving} ${targeting}">
                             <h4>${name}</h4>
                             <span class="desc">${desc}</span>
@@ -143,6 +146,10 @@ function initClient() {
     }, function(error) {
         console.log(JSON.stringify(error, null, 2));
     });
+}
+
+function populateIndicators() {
+	alert ('TBD');
 }
 
 

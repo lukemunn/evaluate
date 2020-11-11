@@ -1,5 +1,5 @@
 
-
+/*
 var containers = new Array();
 containers.push(document.getElementById('drag-1'));
 containers.push(document.getElementById('drag-2'));
@@ -12,6 +12,11 @@ containersRemoveable.push(document.getElementById('drag-1'));
 containersRemoveable.push(document.getElementById('drag-2'));
 containersRemoveable.push(document.getElementById('drag-3'));
 containersRemoveable.push(document.getElementById('drag-4'));
+*/
+var containers = $( ".drag-inner-list" ).toArray();
+containers.push(document.getElementById('indicators-list'));
+
+var containersRemoveable = $( ".drag-inner-list" ).toArray();
 
 var drake = dragula({ 
 	containers: containers,
@@ -35,12 +40,14 @@ var drake = dragula({
 
 
 drake.on('cloned', function(cloned, original, type) {
+	
+
 
 	// glitch because isotope uses absolute positioning when filtering, so change to relative when dropped
 	$(cloned).css({position: 'relative'}).css({opacity: '100%'}).css('top', '').css('left', '');	
 
 	// Dim an indicator if already used. Can be used again, so perhaps unclear semantics. 
-	if ($(original).parent().attr('id') === 'drag-5')
+	if ($(original).parent().attr('id') === 'indicators-list')
 		$(original).css({opacity: '50%'});
 
 });
@@ -57,10 +64,6 @@ drake.on('dragend', function(el) {
 
 	// remove 'is-moving' class from element after dragging has stopped
 	el.classList.remove('is-moving');
-	
-	// if one item successfully dropped, then show step 3
-	$(".step2").hide();
-	$(".step3").show();
 
 	// Regenerate heatmap
 	console.log(el.id);
@@ -75,7 +78,7 @@ var wyvern = dragula({
 	removeOnSpill: true
 });
 wyvern.on('remove', function(el, container, source) {
-	$('#drag-5 #' + el.id).css({opacity: '100%'});
+	$('#indicators-list #' + el.id).css({opacity: '100%'});
 });
 
 $(document).on({
@@ -83,10 +86,14 @@ $(document).on({
         //stuff to do on mouse enter
         // console.log("rollover");
         var innerhtml = $( this ).html();
-		$( "#infopanel" ).html(innerhtml);
+		var y = $(this).offset().top;
+		$(" #infopanel").show();
+		$(" #infopanel:before").show();
+		$( "#infopanel" ).html(innerhtml).css("top", y);
     },
     mouseleave: function () {
         //stuff to do on mouse leave
-        $( "#infopanel" ).html("");
+        $(" #infopanel").hide();
+		$(" #infopanel:before").hide();
     }
 }, ".drag-item");

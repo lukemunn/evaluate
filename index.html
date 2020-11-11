@@ -40,15 +40,33 @@
     <div class="report-fixed">Hello World!</div>
 </section>
 
+
+
 		
     <div data-tabs class="topictabs">
       <button data-active>Cyberbullying</button>
       <button>Online Grooming</button>
     </div>
+	
+  		<!-- indicator list -->
+  		<div class="indicators-container">
+  			<div class="indicators-label">Indicators</div>
+  			<ul class="indicators-list" id="indicators-list">
+				
+				<li class="drag-item">
+				                            <h4>Test</h4>
+				                            <span class="desc">The quick brown fox...</span>
+				                            <span class="plus">Positive</span>
+				                            <span class="minus">Negative</span>
+				                            <span class="cite">Smith and Smith 2020</span>
+				                        </li>
+				
+  			</div>
+  		</div>
 
 	<!-- start cyberbullying panes -->
     <div data-panes class="topicpanes">
-      <div><span class="toc-label">Theory of Change:</span> 
+		<div><span class="toc-label">Theory of Change:</span> 
          <div data-tabs> 
           <button data-active>Ecological</button>
           <button >Strain</button>
@@ -56,10 +74,20 @@
   		  <button>Nudge</button>
           </div>
 		  
-          <div data-panes>
+
+		  
+		  
+          <div data-panes class="datapanes">
 			  <!-- ecological -->
-            <div>
+            <div class="datapane">
 				<div class="toc-desc">Account for the multiple environments that influence individuals and create the conditions for cyberbullying.</div>
+				
+				<div class="buttons">
+					<button type="button" class="populateButton">Prepopulate?</button>
+					<button type="button" class="generateButton">Generate PDF</button>
+				</div>
+						
+				<div class="flex-container">
 				
 				<div class="drag-column">
 						<span class="drag-column-header">Strengthen Relationships with Family & Peers</span><div class="drag-inner-list"></div>		
@@ -83,18 +111,22 @@
 						<span class="drag-column-header">Monitor & Block</span><div class="drag-inner-list"></div>		
 				</div>
 				
-				<div class="drag-column behavior">
-						<span class="drag-column-header">Reduce Cyberbullying Behavior</span><div class="drag-inner-list"></div>		
-				</div>
-				
-				<div class="drag-column impacts">
-						<span class="drag-column-header">Reduce Cyberbullying Impacts</span><div class="drag-inner-list"></div>		
-				</div>
+			</div>
+			
+
 				
 			</div>
 			<!-- strain -->
-  		  	<div>
+  		  	<div class="datapane">
 				<div class="toc-desc">Reduce the strains or frustrations that cause individuals to adopt cyberbullying.</div>
+				
+				<div class="buttons">
+					<button type="button" class="populateButton">Prepopulate?</button>
+					<button type="button" class="generateButton">Generate PDF</button>
+				</div>
+				
+				<div class="flex-container">
+					
 				<div class="drag-column">
 						<span class="drag-column-header">Strengthen Relationships with Family & Peers</span><div class="drag-inner-list"></div>		
 				</div>
@@ -102,18 +134,20 @@
 						<span class="drag-column-header">Improve Self Esteem and Resilience</span><div class="drag-inner-list"></div>		
 				</div>
 				
-				<div class="drag-column behavior">
-						<span class="drag-column-header">Reduce Cyberbullying Behavior</span><div class="drag-inner-list"></div>		
-				</div>
+			</div>
 				
-				<div class="drag-column impacts">
-						<span class="drag-column-header">Reduce Cyberbullying Impacts</span><div class="drag-inner-list"></div>		
-				</div>
   		  	</div>
 			
 			<!-- empowerment -->
-  		  	<div>
+  		  	<div class="datapane">
 				<div class="toc-desc">Redistribute power and promote agency and resiliency so individuals can deal with cyberbullying.</div>
+				
+				<div class="buttons">
+					<button type="button" class="populateButton">Prepopulate?</button>
+					<button type="button" class="generateButton">Generate PDF</button>
+				</div>
+				
+				<div class="flex-container">
 				
 				<div class="drag-column">
 						<span class="drag-column-header">Strengthen Relationships with Family & Peers</span><div class="drag-inner-list"></div>		
@@ -128,17 +162,20 @@
 						<span class="drag-column-header">Increase Awareness and Use of Support Systems</span><div class="drag-inner-list"></div>		
 				</div>
 				
-				<div class="drag-column behavior">
-						<span class="drag-column-header">Reduce Cyberbullying Behavior</span><div class="drag-inner-list"></div>		
-				</div>
+			</div>
 				
-				<div class="drag-column impacts">
-						<span class="drag-column-header">Reduce Cyberbullying Impacts</span><div class="drag-inner-list"></div>		
-				</div>
 			</div>
 			<!-- nudge -->
-  		  	<div>
+  		  	<div class="datapane">
 				<div class="toc-desc">Influence individual behavior through positive reinforcement and indirect suggestion in order to reduce cyberbullying.</div>
+				
+				<div class="buttons">
+					<button type="button" class="populateButton">Prepopulate?</button>
+					<button type="button" class="generateButton">Generate PDF</button>
+				</div>
+				
+				<div class="flex-container">
+				
 				<div class="drag-column">
 						<span class="drag-column-header">Increase Awareness and Use of Support Systems</span><div class="drag-inner-list"></div>		
 				</div>
@@ -146,16 +183,24 @@
 						<span class="drag-column-header">Monitor & Block</span><div class="drag-inner-list"></div>		
 				</div>
 				
-				<div class="drag-column behavior">
-						<span class="drag-column-header">Reduce Cyberbullying Behavior</span><div class="drag-inner-list"></div>		
-				</div>
+			</div>
 				
-				<div class="drag-column impacts">
-						<span class="drag-column-header">Reduce Cyberbullying Impacts</span><div class="drag-inner-list"></div>		
-				</div>
   		  	</div>
           </div>
 		  <!-- end ToC panes -->
+		  
+		  				<!-- behavior and impacts -->
+		  				<img src="down-arrow.png" class="down-arrow"/>
+				
+		  				<div class="drag-column behavior">
+		  						<span class="drag-column-header">Reduce Cyberbullying Behavior</span><div class="drag-inner-list"></div>		
+		  				</div>
+				
+		  			  	<img src="down-arrow.png" class="down-arrow"/>
+				
+		  				<div class="drag-column impacts">
+		  						<span class="drag-column-header">Reduce Cyberbullying Impacts</span><div class="drag-inner-list"></div>		
+		  				</div>
 		  
 	  </div>
 	  <!-- end cyberbullying panes -->
@@ -171,8 +216,15 @@
 
         <div data-panes>
 		  <!-- ecological -->
-          <div>
+          <div class="datapane">
 			  <div class="toc-desc">Account for the multiple environments that influence individuals and create the conditions for grooming.</div>
+			  
+			<div class="buttons">
+				<button type="button" class="populateButton">Prepopulate?</button>
+				<button type="button" class="generateButton">Generate PDF</button>
+			</div>
+			  
+			  <div class="flex-container">
 
 				<div class="drag-column">
 						<span class="drag-column-header">Strengthen Relationships with Family & Peers</span><div class="drag-inner-list"></div>		
@@ -199,18 +251,22 @@
 						<span class="drag-column-header">Monitor & Block</span><div class="drag-inner-list"></div>		
 				</div>
 				
-				<div class="drag-column behavior">
-						<span class="drag-column-header">Reduce Online Grooming Behavior</span><div class="drag-inner-list"></div>		
-				</div>
+			</div>
 				
-				<div class="drag-column impacts">
-						<span class="drag-column-header">Reduce Online Grooming Impacts</span><div class="drag-inner-list"></div>		
-				</div>
+
 			
 		</div>
 		<!-- strain -->
-		  	<div>
+		  	<div class="datapane">
 				<div class="toc-desc">Reduce the strains or frustrations that cause individuals to adopt grooming.</div>
+				
+				<div class="buttons">
+					<button type="button" class="populateButton">Prepopulate?</button>
+					<button type="button" class="generateButton">Generate PDF</button>
+				</div>
+				
+				<div class="flex-container">
+				
 				<div class="drag-column">
 						<span class="drag-column-header">Strengthen Relationships with Family & Peers</span><div class="drag-inner-list"></div>		
 				</div>
@@ -220,19 +276,23 @@
 				<div class="drag-column">
 						<span class="drag-column-header">Decrease Cybersexual Behavior</span><div class="drag-inner-list"></div>		
 				</div>
-			
-				<div class="drag-column behavior">
-						<span class="drag-column-header">Reduce Online Grooming Behavior</span><div class="drag-inner-list"></div>		
-				</div>
 				
-				<div class="drag-column impacts">
-						<span class="drag-column-header">Reduce Online Grooming Impacts</span><div class="drag-inner-list"></div>		
-				</div>
+			</div>
+			
+
 		  	</div>
 		
 		<!-- empowerment -->
-		  	<div>
+		  	<div class="datapane">
 				<div class="toc-desc">Redistribute power and promote agency and resiliency so individuals can deal with grooming.</div>
+				
+				<div class="buttons">
+					<button type="button" class="populateButton">Prepopulate?</button>
+					<button type="button" class="generateButton">Generate PDF</button>
+				</div>
+				
+				<div class="flex-container">
+				
 				<div class="drag-column">
 						<span class="drag-column-header">Strengthen Relationships with Family & Peers</span><div class="drag-inner-list"></div>		
 				</div>
@@ -245,34 +305,51 @@
 				<div class="drag-column">
 						<span class="drag-column-header">Increase Awareness and Use of Support Systems</span><div class="drag-inner-list"></div>		
 				</div>
-			
-				<div class="drag-column behavior">
-						<span class="drag-column-header">Reduce Online Grooming Behavior</span><div class="drag-inner-list"></div>		
-				</div>
 				
-				<div class="drag-column impacts">
-						<span class="drag-column-header">Reduce Online Grooming Impacts</span><div class="drag-inner-list"></div>		
-				</div>
+			</div>
+			
+
 			</div>
 		<!-- nudge -->
-		  	<div>
+		  	<div class="datapane">
 				<div class="toc-desc">Influence individual behavior through positive reinforcement and indirect suggestion in order to reduce grooming.</div>
+				
+				<div class="buttons">
+					<button type="button" class="populateButton">Prepopulate?</button>
+					<button type="button" class="generateButton">Generate PDF</button>
+				</div>
+				
+				<div class="flex-container">
+				
 				<div class="drag-column">
 						<span class="drag-column-header">Increase Awareness and Use of Support Systems</span><div class="drag-inner-list"></div>		
 				</div>
 				<div class="drag-column">
 						<span class="drag-column-header">Monitor & Block</span><div class="drag-inner-list"></div>		
 				</div>
-			
-				<div class="drag-column behavior">
-						<span class="drag-column-header">Reduce Online Grooming Behavior</span><div class="drag-inner-list"></div>		
-				</div>
 				
-				<div class="drag-column impacts">
-						<span class="drag-column-header">Reduce Online Grooming Impacts</span><div class="drag-inner-list"></div>		
-				</div>
+			</div>
+			
 		  	</div>
+			
+			
+			
         </div>
+		  <!-- end grooming ToC panes -->
+		  
+		<!-- behavior and impacts -->
+		<img src="down-arrow.png" class="down-arrow"/>
+
+		<div class="drag-column behavior">
+				<span class="drag-column-header">Reduce Online Grooming Behavior</span><div class="drag-inner-list"></div>		
+		</div>
+
+	  	<img src="down-arrow.png" class="down-arrow"/>
+
+		<div class="drag-column impacts">
+				<span class="drag-column-header">Reduce Online Grooming Impacts</span><div class="drag-inner-list"></div>		
+		</div>
+		  
 		  <!-- end online grooming panes -->
         </div>
       </div>
@@ -316,14 +393,17 @@
 	    $(document).ready(function(){
 			
 
-			  $("#infopanel").show();
 			  $(".drag-container").show();
-			  $(".filter").show();
-			  $(".step1").hide();		
-			  $(".step2").show();	
+			  
+			  $(".generateButton").click(function(){
+				  generateReport();
+			      }); 
+				  
+				  $(".populateButton").click(function(){
+					  populateIndicators(); 
+				      }); 
 
-
-		  $container = $('#drag-5');
+		  $container = $('#indicator-list');
   
 		  
 	  });  

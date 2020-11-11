@@ -7,7 +7,6 @@
   border-bottom: none;
   overflow-x: auto;
   display: flex; 
-
 }
   [data-tabs] > [role="tab"] {
     all: unset;
@@ -66,7 +65,7 @@
 .toc-label {
 padding: .75rem 1.5rem;
 border-bottom: 4px solid transparent;
-width: 150px;
+width: 180px;
 float: left;
 font-weight: normal;
 color: #999;
@@ -75,10 +74,10 @@ color: #999;
 [data-panes] {
   border-top: none; }
   [data-panes] > * {
-    background: #fff;
-    padding: 2rem;
+    padding: 1rem;
     font-weight: 600;
     outline: none;
+	  clear: both;
 }
     [data-panes] > *:focus {
        }

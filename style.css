@@ -8,6 +8,8 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+  font-weight: normal;
 }
 
 ul {
@@ -34,21 +36,64 @@ ul {
 
 /* report button */
 button {
-	background-color: #00B961;
+	background-color: #30ADA0;
 	color: white;
 	border: none;
 	border-radius: 3px;
-	padding: 5px 8px;
-	font-size: 12px;
+	padding: 6px 10px;
+	font-size: 13px;
 	cursor: pointer;
 	margin: 0 5px;
 }
 
+/* put the buttons always on top right and toc description never overlap */
+.toc-desc {
+	font-weight: normal;
+	color: #333;
+	padding-bottom: 1.5rem;
+	width: calc(100% - 250px);
+}
+.buttons {
+	position: absolute;
+	right: 10px;
+	top: 13px;
+}
+
+.topicpanes {
+	max-width: 1000px;
+	margin-left: 250px;
+}
+.datapane {
+	background-color: #efefef;
+	position: relative;
+}
 
 .drag-container {
   max-width: 1000px;
-  margin-left: 210px;
+  font-size: 13px;
 }
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* special classes for behavior and impacts */
+.behavior {
+	width: 400px;
+	margin: 0 auto !important;
+}
+.impacts {
+	margin-top: 5rem;
+	width: 400px;
+	margin: 0 auto !important;
+}
+
+.down-arrow {
+	margin: 1rem auto;
+	display: block;
+}
+
 
 .drag-list {
   display: -webkit-box;
@@ -64,11 +109,14 @@ button {
 
 .drag-column {
   -webkit-box-flex: 1;
-          flex: 1;
-  margin: 0 10px;
+          flex: 0;
+  margin-right: 10px;
+  margin-bottom: 10px;
   position: relative;
-  background: rgba(0, 0, 0, 0.2);
+  background: none;
+  border: 1px solid #999;
   overflow: hidden;
+  min-width: 200px;
 }
 @media (max-width: 690px) {
   .drag-column {
@@ -87,27 +135,6 @@ button {
   font-weight: 400;
 }
 
-.drag-column-on-hold .drag-column-header,
-.drag-column-on-hold .is-moved,
-.drag-column-on-hold .drag-options {
-  background: #FB7D44;
-}
-.drag-column-in-progress .drag-column-header,
-.drag-column-in-progress .is-moved,
-.drag-column-in-progress .drag-options {
-  background: #2A92BF;
-}
-.drag-column-needs-review .drag-column-header,
-.drag-column-needs-review .is-moved,
-.drag-column-needs-review .drag-options {
-  background: #F4CE46;
-}
-.drag-column-approved .drag-column-header,
-.drag-column-approved .is-moved,
-.drag-column-approved .drag-options {
-  background: #00B961;
-}
-
 .drag-column-header {
   display: -webkit-box;
   display: flex;
@@ -116,6 +143,10 @@ button {
   -webkit-box-pack: justify;
           justify-content: space-between;
   padding: 10px;
+  line-height: 135%;
+  background: #999;
+  color: white;
+  font-weight: normal;
 }
 
 .drag-inner-list {
@@ -129,6 +160,7 @@ button {
   -webkit-transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
   transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
   cursor: grab;
+  list-style: none;
 }
 .drag-item.is-moving {
   -webkit-transform: scale(1.2);
@@ -181,6 +213,8 @@ button {
 		line-height: 1.2em;
 		padding: 1em;
 		transition: background 0.4s, box-shadow 0.4s;
+		background: white;
+		border: 2px solid #30ADA0;
 }
 .drag-item h4 {
 	padding:0;
@@ -203,14 +237,26 @@ button {
 }
 
 /* info panel */
+
 #infopanel {
-	position: fixed;
-  right: 0;
-	top: 0;
-	width: 300px;
-	background: #cecece;	
-	height: 100%;
-	padding: 1em;
+    background: #33C4A6;
+    border-radius: 5px;
+    width:250px;
+    position: absolute;
+	left: 250px;
+	padding: 1rem;
+	display: none;
+}
+#infopanel:before {
+    content:"";
+    position: absolute;
+    height: 0px;
+    width: 0px;
+    top: 20px;
+    left: -19px; /* 1px buffer for zooming problems while rendering*/
+    border-width: 10px;
+    border-color: transparent #33C4A6 transparent transparent;
+    border-style: solid;
 }
 
 #infopanel span {
@@ -220,25 +266,27 @@ button {
 #infopanel h4 {
 	border: 0;
 	margin: 0;
+	font-weight: bold;
 }
 
 #infopanel .desc {
 	padding: 10px 0;
 	line-height: 120%;
 	border: 0;
+	font-size: 13px;
 }
 
 #infopanel .cite::before {
 	content: "Source: ";
 }
 #infopanel .cite {
-	font-size: 12px;
+	font-size: 11px;
 	color: #333;
 	padding-top: 1em;
 }
 
 #infopanel .recommend, #infopanel .plus, #infopanel .minus {
-	font-size: 14px;
+	font-size: 12px;
 }
 
 #infopanel .plus::before {
@@ -318,9 +366,24 @@ ul.drag-inner-list#drag-4 {
 
 }
 
-.scrollme {
+/* indicators css */
+.indicators-container {
+	width: 250px;
+	position: absolute;
+	top: 130px;
+
+}
+.indicators-label {
+	color: #999;
+	font-weight: normal;
+	padding-bottom: 1rem;
+	padding-left: 10px
+}
+.indicators-list {
+	height: 600px;
     max-height: 600px !important; 
-    overflow-y: scroll;
+    overflow-y: scroll;	
+
 }
 
 
