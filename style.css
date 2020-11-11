@@ -392,6 +392,7 @@ ul.drag-inner-list#drag-4 {
   float: left;
   width: 600px; 
   height: 600px;
+  display: none;
 }
 .heatmap {
   width:100%; 
