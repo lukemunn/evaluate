@@ -10,6 +10,7 @@ body {
   -webkit-font-smoothing: antialiased;
   font-size: 14px;
   font-weight: normal;
+  margin: 0;
 }
 
 ul {
@@ -63,7 +64,6 @@ button:hover {
 }
 
 .topicpanes {
-	max-width: 1000px;
 	margin-left: 250px;
 }
 .datapane {
@@ -164,6 +164,11 @@ button:hover {
   transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
   cursor: grab;
   list-style: none;
+  color: #666;
+}
+.drag-item:hover {
+	box-shadow: 2px 2px silver;
+	color: #333;
 }
 .drag-item.is-moving {
   -webkit-transform: scale(1.2);
@@ -275,7 +280,7 @@ button:hover {
 
 #infopanel .desc {
 	padding: 10px 0;
-	line-height: 120%;
+	line-height: 130%;
 	border: 0;
 	font-size: 13px;
 }
