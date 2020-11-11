@@ -6,7 +6,7 @@ const { jsPDF } = window.jspdf;
 CLIENT_ID = '559576953817-0drd9ji65as2gc750tpvuj5hcfglsrod.apps.googleusercontent.com';
 API_KEY = 'AIzaSyDJqo5JL9MxUqHBVdkAn6DhgKcfGaVam4w';
 SPREADSHEET_ID = '1NLdHWSQjWVZKCyQxjDx3jK9FbfFGvl5YGCxFSJnN1lQ';
-INDICATOR_RANGE = "'Indicators'!A3:U110"
+INDICATOR_RANGE = "'Indicators webtool'!A3:U100"
 
 // Dynamic loading?
 // $.get('/credentials.json').then((response) => {
@@ -66,33 +66,27 @@ function initClient() {
 
             for (let i = 0; i < result.values.length; i++) {
                 let row = result.values[i];
-                let issue = row[1].toLowerCase();
+                let issue = row[0].toLowerCase();
 				if (issue=="online grooming") {
 					issue="grooming";
 				}
 				if (issue=="both") {
 					issue="grooming cyberbullying";
 				}
-                let name = row[2];
-                let desc = row[3];
-                let recommend = row[9];
-                recommend = recommend == '' ? 'N/A' : recommend;
-                let plus = row[10];
-                let minus = row[11];
-                let candidate = row[13];
-                let level = row[14].toLowerCase();
-                let cite = row[12];
-				let involving = row[15];
-				let targeting = row[16];
-                let theory = row[18];
+				
+				/* redo variables based on simpler webtools spreadsheet */
+                let name = row[1];
+                let desc = row[2];
+				let factors = row[3].split(",");
+				let theory = row[4];
+				
+                let plus = row[5];
+                let minus = row[6];
+				let cite = row[7];
 
-                // Generate some random theories for now
-                theory = (theory === undefined || theory === '') ? THEORIES[Math.floor(Math.random() * THEORIES.length)] : theory;
-                console.log(theory)
-                if (candidate == 'Y') {
                     let indId = `indicator-${i+1}`;
                     $('#indicators-list').append( 
-                        `<li id="${indId}" class="drag-item ${issue} ${level} ${involving} ${targeting}">
+                        `<li id="${indId}" class="drag-item ${issue}">
                             <h4>${name}</h4>
                             <span class="desc">${desc}</span>
                             <span class="plus">${plus}</span>
@@ -104,17 +98,12 @@ function initClient() {
                         id: indId,
                         name: name,
                         issue: issue,
-                        level: level,
-                        involving: involving,
-                        targeting: targeting,
                         desc: desc,
                         plus: plus,
                         minus: minus,
-                        recommend: recommend,
                         cite: cite,                       
                         theory: theory,                       
                     };
-                }
             }
 			
 			$(document).on({
