@@ -116,7 +116,7 @@ button {
   background: none;
   border: 1px solid #999;
   overflow: hidden;
-  min-width: 200px;
+  min-width: 235px;
 }
 @media (max-width: 690px) {
   .drag-column {
