@@ -86,10 +86,11 @@ $(document).on({
         //stuff to do on mouse enter
         // console.log("rollover");
         var innerhtml = $( this ).html();
+		var x = $(this).offset().left;
 		var y = $(this).offset().top;
 		$(" #infopanel").show();
 		$(" #infopanel:before").show();
-		$( "#infopanel" ).html(innerhtml).css("top", y);
+		$( "#infopanel" ).html(innerhtml).css("top", y).css("left", x+230);
     },
     mouseleave: function () {
         //stuff to do on mouse leave

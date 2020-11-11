@@ -245,7 +245,7 @@ button:hover {
 #infopanel {
     background: #33C4A6;
     border-radius: 5px;
-    width:250px;
+    width:300px;
     position: absolute;
 	left: 250px;
 	padding: 1rem;
