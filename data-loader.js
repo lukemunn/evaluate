@@ -26,6 +26,7 @@ var SCOPES = "https://www.googleapis.com/auth/spreadsheets.readonly";
 // Global variable for results - use for look-ups
 let indicators = {};
 let selectedIndicators = [];
+let prepopulated = false;
 const THEORIES = [
     'ecological', 
     'empowerment', 
@@ -156,7 +157,8 @@ function initClient() {
 }
 
 function populateIndicators() {
-    console.log('TBD');
+    if (prepopulated)
+        return;
     let values = Object.values(indicators);
     if (values.length <= 0)
         return;
@@ -173,8 +175,17 @@ function populateIndicators() {
                 source.clone().appendTo(targetG);
             }
         }
-        
     }
+
+    prepopulated = true;
+}
+
+
+function depopulateIndicators() {
+    $('.cyberbullying .drag-inner-list').empty();
+    $('.grooming .drag-inner-list').empty();
+
+    prepopulated = false;
 }
 
 

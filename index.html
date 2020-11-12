@@ -84,6 +84,7 @@
 				
 				<div class="buttons">
 					<button type="button" class="populateButton">Prepopulate?</button>
+					<button type="button" class="depopulateButton">Empty?</button>
 					<button type="button" class="generateButton">Generate PDF</button>
 				</div>
 						
@@ -125,6 +126,7 @@
 				
 				<div class="buttons">
 					<button type="button" class="populateButton">Prepopulate?</button>
+					<button type="button" class="depopulateButton">Empty?</button>
 					<button type="button" class="generateButton">Generate PDF</button>
 				</div>
 				
@@ -150,6 +152,7 @@
 				
 				<div class="buttons">
 					<button type="button" class="populateButton">Prepopulate?</button>
+					<button type="button" class="depopulateButton">Empty?</button>
 					<button type="button" class="generateButton">Generate PDF</button>
 				</div>
 				
@@ -177,6 +180,7 @@
 				
 				<div class="buttons">
 					<button type="button" class="populateButton">Prepopulate?</button>
+					<button type="button" class="depopulateButton">Empty?</button>
 					<button type="button" class="generateButton">Generate PDF</button>
 				</div>
 				
@@ -227,6 +231,7 @@
 			  
 			<div class="buttons">
 				<button type="button" class="populateButton">Prepopulate?</button>
+				<button type="button" class="depopulateButton">Empty?</button>
 				<button type="button" class="generateButton">Generate PDF</button>
 			</div>
 			  
@@ -271,6 +276,7 @@
 				
 				<div class="buttons">
 					<button type="button" class="populateButton">Prepopulate?</button>
+					<button type="button" class="depopulateButton">Empty?</button>
 					<button type="button" class="generateButton">Generate PDF</button>
 				</div>
 				
@@ -300,6 +306,7 @@
 				
 				<div class="buttons">
 					<button type="button" class="populateButton">Prepopulate?</button>
+					<button type="button" class="depopulateButton">Empty?</button>
 					<button type="button" class="generateButton">Generate PDF</button>
 				</div>
 				
@@ -328,6 +335,7 @@
 				
 				<div class="buttons">
 					<button type="button" class="populateButton">Prepopulate?</button>
+					<button type="button" class="depopulateButton">Empty?</button>
 					<button type="button" class="generateButton">Generate PDF</button>
 				</div>
 				
@@ -405,20 +413,23 @@
 	    $(document).ready(function(){
 			
 
-			  $(".drag-container").show();
-			  
-			  $(".generateButton").click(function(){
-				  generateReport();
-			      }); 
-				  
-				  $(".populateButton").click(function(){
-					  populateIndicators(); 
-				      }); 
+			$(".drag-container").show();
 
-		  $container = $('#indicator-list');
-  
-		  
-	  });  
+			$(".generateButton").click(function(){
+				generateReport();
+			}); 
+
+			$(".populateButton").click(function(){
+				populateIndicators(); 
+			}); 
+
+			$(".depopulateButton").click(function(){
+				depopulateIndicators(); 
+			}); 
+
+			$container = $('#indicator-list');
+    
+	  	});  
 
 	 
 	</script>
