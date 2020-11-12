@@ -190,77 +190,31 @@ function depopulateIndicators() {
 
 
 function generateReport() {
-    let report = '<h3>Evaluation Framework</h3>';
-
-    report += '<h4>Behavioural Indicators</h4>';
-    $('#drag-1').find('li').each((index, value) => {
-        report += `<p>${value.innerText }</p>`;
-    });
-    report += '<h4>Individual Indicators</h4>';
-    $('#drag-2').find('li').each((index, value) => {
-        report += `<p>${value.innerText }</p>`;
-    });
-    report += '<h4>Relational / Institutional / Societal Indicators</h4>';
-    $('#drag-3').find('li').each((index, value) => {
-        report += `<p>${value.innerText }</p>`;
-    });
-    report += '<p><a style="font-size: 11px" href="#" onclick="hideReport()">Hide</a></p>';
-
-    $(".report-fixed").html(report);
-    // $(".report-fixed").show();
-
 
     const doc = new jsPDF();
     let yo = 40;
 
-    /*
-    doc.setFontSize(13);
-	doc.setTextColor(28,171,226);
-	doc.setFont(doc.getFont().fontName, "bold");
-    doc.text("Behavioural Indicators", 20, 20);
-    generateIndicators(doc, $('#drag-1'));
-
-    doc.addPage();
-    doc.setFontSize(13);
-	doc.setTextColor(28,171,226);
-	doc.setFont(doc.getFont().fontName, "bold");
-    doc.text("Individual Indicators", 20, 20);   
-    generateIndicators(doc, $('#drag-2'));
-
-    doc.addPage();
-    doc.setFontSize(13);
-	doc.setTextColor(28,171,226);
-	doc.setFont(doc.getFont().fontName, "bold");
-    doc.text("Relational / Institutional / Societal Indicators", 20, 20);
-    generateIndicators(doc, $('#drag-3'));
-    */
-
-    doc.setFontSize(13);
+    doc.setFontSize(16);
     doc.setTextColor(28,171,226);
     doc.setFont(doc.getFont().fontName, "bold");
-    doc.text("Awareness Indicators", 20, 20);
-    generateIndicators(doc, $('#drag-1'));
+    doc.text("Cyberbullying", 20, 20);
+    // Do causal diagram
 
-    doc.addPage();
-    doc.setFontSize(13);
-    doc.setTextColor(28,171,226);
-    doc.setFont(doc.getFont().fontName, "bold");
-    doc.text("Prevention Indicators", 20, 20);   
-    generateIndicators(doc, $('#drag-2'));
+    // Add Factor Indicators
+    for (let i = 0; i < FACTORS.length; i++) {
+        let factor = FACTORS[i];
+        let draggable = $(`.cyberbullying.ecological > .flex-container > .${factor}`);
+        let heading = draggable.find('.drag-column-header').text();
 
-    doc.addPage();
-    doc.setFontSize(13);
-    doc.setTextColor(28,171,226);
-    doc.setFont(doc.getFont().fontName, "bold");
-    doc.text("Management Indicators", 20, 20);
-    generateIndicators(doc, $('#drag-3'));
+        doc.addPage();
+        doc.setFontSize(13);
+        doc.setTextColor(28,171,226);
+        doc.setFont(doc.getFont().fontName, "bold");
+        doc.text(heading, 20, 20);
+        generateIndicators(doc, draggable);
+    }
+    
 
-    doc.addPage();
-    doc.setFontSize(13);
-    doc.setTextColor(28,171,226);
-    doc.setFont(doc.getFont().fontName, "bold");
-    doc.text("Wellbeing Indicators", 20, 20);
-    generateIndicators(doc, $('#drag-4'));
    
 	const arrayBuffer = doc.output('arraybuffer');
 	
@@ -341,10 +295,12 @@ function printAndOffset(doc, str, reflow, xo, yo) {
         if (lastSpace > 0 && len > j + reflow) {
             tmp = tmp.substring(0, lastSpace);
             offset = lastSpace + 1;
-            yo += 5;
         }
             
         doc.text(tmp, xo, yo);
+
+        if (j < len - offset)
+            yo += 5;
         
     }
 
@@ -364,10 +320,10 @@ function generateIndicators(doc, element) {
         let measuresText = desc.innerText.split('\n');
         let plus = $(value).find('span.plus')[0];
         let minus = $(value).find('span.minus')[0];
-        let recommend = $(value).find('span.recommend')[0];
+        // let recommend = $(value).find('span.recommend')[0];
         let cite = $(value).find('span.cite')[0];
 
-        let reflow = 100;
+        let reflow = 80;
         let fieldOffset = 60;
         let longestLine = Math.max(...measuresText.map((mt) => mt.length));
         let lines = measuresText.map((mt) => mt.length / 80).reduce((acc, curr) => acc + curr, 0);
@@ -387,31 +343,35 @@ function generateIndicators(doc, element) {
         doc.setFontSize(10);
         yo += 6;
         doc.setFont(doc.getFont().fontName, "bold");
-        doc.text("Pros: ", 20, yo);
+        doc.text("Strengths: ", 20, yo);
         doc.setFont(doc.getFont().fontName, "normal");
-        //doc.text(plus.innerText.toString(), fieldOffset, yo);
+        // doc.text(plus.innerText.toString(), fieldOffset, yo);
         yo = printAndOffset(doc, plus.innerText.toString(), reflow, fieldOffset, yo);
 
         yo += 6;
         doc.setFont(doc.getFont().fontName, "bold");
-        doc.text("Cons: ", 20, yo);
+        doc.text("Weaknesses: ", 20, yo);
         doc.setFont(doc.getFont().fontName, "normal");
         // doc.text(minus.innerText.toString(), fieldOffset, yo);
         yo = printAndOffset(doc, minus.innerText.toString(), reflow, fieldOffset, yo);
 
+        /*
         yo += 6;
         doc.setFont(doc.getFont().fontName, "bold");
         doc.text("Recommendation: ", 20, yo);
         doc.setFont(doc.getFont().fontName, "normal");
         // doc.text(recommend.innerText.toString(), fieldOffset, yo);
         yo = printAndOffset(doc, recommend.innerText.toString(), reflow, fieldOffset, yo);
+        */
 
         yo += 6;
         doc.setFont(doc.getFont().fontName, "bold");
         doc.text("Reference: ", 20, yo);
         doc.setFont(doc.getFont().fontName, "normal");
         // doc.text(cite.innerText.toString(), fieldOffset, yo);
-        yo = printAndOffset(doc, cite.innerText.toString(), reflow, fieldOffset, yo);
+        let citeText = cite.innerText.toString();
+        citeText = citeText.trim().replace('\n', ' ');
+        yo = printAndOffset(doc, citeText, reflow, fieldOffset, yo);
 
         yo += 6;
         doc.setFont(doc.getFont().fontName, "bold");
@@ -420,7 +380,7 @@ function generateIndicators(doc, element) {
         
         for (let i = 0; i < measuresText.length; i++) {
             let mt = measuresText[i];
-
+            mt = mt.trim().replace('\n', ' ');
             yo = printAndOffset(doc, mt, reflow, fieldOffset, yo);
 
         }
