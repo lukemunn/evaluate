@@ -163,7 +163,14 @@ class tabbisClass {
 		this.resetPanes([ ...pane.parentElement.children ]);
 
 		this.activateTab(tab);
-		this.activatePane(pane);
+		// this.activatePane(pane);
+		// LM's hack
+		if (i == 0)
+			// Normal behaviour
+			this.activatePane(pane);
+		else
+			// Keep first tab selected
+			this.activatePane([ ...pane.parentElement.children ][0]);
 
 		this.saveMemory(tab, i);
 

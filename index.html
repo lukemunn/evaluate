@@ -68,10 +68,10 @@
     <div data-panes class="topicpanes">
 		<div><span class="toc-label">Theory of Change:</span> 
          <div data-tabs> 
-          <button data-active>Ecological</button>
-          <button >Strain</button>
-  		  <button>Empowerment</button>
-  		  <button>Nudge</button>
+          <button data-active class="cyberbullying ecological">Ecological</button>
+          <button class="cyberbullying strain">Strain</button>
+  		  <button class="cyberbullying empowerment">Empowerment</button>
+  		  <button class="cyberbullying nudge">Nudge</button>
           </div>
 		  
 
@@ -79,7 +79,7 @@
 		  
           <div data-panes class="datapanes">
 			  <!-- ecological -->
-            <div class="datapane">
+            <div class="datapane cyberbullying ecological">
 				<div class="toc-desc">Account for the multiple environments that influence individuals and create the conditions for cyberbullying.</div>
 				
 				<div class="buttons">
@@ -89,26 +89,29 @@
 						
 				<div class="flex-container">
 				
-				<div class="drag-column">
+				<div class="drag-column relationships">
 						<span class="drag-column-header">Strengthen Relationships with Family & Peers</span><div class="drag-inner-list"></div>		
 				</div>
-				<div class="drag-column">
+				<div class="drag-column literacy">
 						<span class="drag-column-header">Increase Tech Literacy and Skills</span><div class="drag-inner-list"></div>		
 				</div>
-				<div class="drag-column">
-						<span class="drag-column-header">Improve Self Esteem and Resilience</span><div class="drag-inner-list"></div>		
+				<div class="drag-column self-esteem">
+						<span class="drag-column-header">Improve Self Esteem, Empathy, Responsibility and Resilience</span><div class="drag-inner-list"></div>		
 				</div>
-				<div class="drag-column">
-						<span class="drag-column-header">Strengthen Offline Norms & Standards</span><div class="drag-inner-list"></div>		
+				<div class="drag-column offline-norms">
+						<span class="drag-column-header">Strengthen Offline Norms, Standards & Legislation</span><div class="drag-inner-list"></div>		
 				</div>
-				<div class="drag-column">
-						<span class="drag-column-header">Strengthen Online Norms & Standards</span><div class="drag-inner-list"></div>		
+				<div class="drag-column online-norms">
+						<span class="drag-column-header">Strengthen Online Norms, Standards & Legislation</span><div class="drag-inner-list"></div>		
 				</div>
-				<div class="drag-column">
+				<div class="drag-column awareness-support">
 						<span class="drag-column-header">Increase Awareness and Use of Support Systems</span><div class="drag-inner-list"></div>		
 				</div>
-				<div class="drag-column">
+				<div class="drag-column monitor-block">
 						<span class="drag-column-header">Monitor & Block</span><div class="drag-inner-list"></div>		
+				</div>
+				<div class="drag-column reduce-stress">
+						<span class="drag-column-header">Reduce Depression and Anxiety</span><div class="drag-inner-list"></div>		
 				</div>
 				
 			</div>
@@ -117,7 +120,7 @@
 				
 			</div>
 			<!-- strain -->
-  		  	<div class="datapane">
+  		  	<div class="datapane cyberbullying strain">
 				<div class="toc-desc">Reduce the strains or frustrations that cause individuals to adopt cyberbullying.</div>
 				
 				<div class="buttons">
@@ -128,18 +131,21 @@
 				<div class="flex-container">
 					
 				<div class="drag-column">
-						<span class="drag-column-header">Strengthen Relationships with Family & Peers</span><div class="drag-inner-list"></div>		
+						<span class="drag-column-header">Strengthen Relationships with Family & Peers</span><div class="drag-inner-list relationships"></div>		
 				</div>
 				<div class="drag-column">
-						<span class="drag-column-header">Improve Self Esteem and Resilience</span><div class="drag-inner-list"></div>		
+						<span class="drag-column-header">Improve Self Esteem, Empathy, Responsibility and Resilience</span><div class="drag-inner-list"></div>		
 				</div>
-				
+				<div class="drag-column reduce-stress">
+					<span class="drag-column-header">Reduce Depression and Anxiety</span><div class="drag-inner-list"></div>		
+				</div>
+			
 			</div>
 				
   		  	</div>
 			
 			<!-- empowerment -->
-  		  	<div class="datapane">
+  		  	<div class="datapane cyberbullying empowerment">
 				<div class="toc-desc">Redistribute power and promote agency and resiliency so individuals can deal with cyberbullying.</div>
 				
 				<div class="buttons">
@@ -150,13 +156,13 @@
 				<div class="flex-container">
 				
 				<div class="drag-column">
-						<span class="drag-column-header">Strengthen Relationships with Family & Peers</span><div class="drag-inner-list"></div>		
+						<span class="drag-column-header">Strengthen Relationships with Family & Peers</span><div class="drag-inner-list relationships"></div>		
 				</div>
 				<div class="drag-column">
-						<span class="drag-column-header">Increase Tech Literacy and Skills</span><div class="drag-inner-list"></div>		
+						<span class="drag-column-header">Increase Tech Literacy and Skills</span><div class="drag-inner-list literacy"></div>		
 				</div>
 				<div class="drag-column">
-						<span class="drag-column-header">Improve Self Esteem and Resilience</span><div class="drag-inner-list"></div>		
+						<span class="drag-column-header">Improve Self Esteem, Empathy, Responsibility and Resilience</span><div class="drag-inner-list"></div>		
 				</div>
 				<div class="drag-column">
 						<span class="drag-column-header">Increase Awareness and Use of Support Systems</span><div class="drag-inner-list"></div>		
@@ -166,7 +172,7 @@
 				
 			</div>
 			<!-- nudge -->
-  		  	<div class="datapane">
+  		  	<div class="datapane cyberbullying nudge">
 				<div class="toc-desc">Influence individual behavior through positive reinforcement and indirect suggestion in order to reduce cyberbullying.</div>
 				
 				<div class="buttons">
@@ -208,15 +214,15 @@
 	  <!-- start online grooming panes -->
       <div><span class="toc-label">Theory of Change:</span> 
         <div data-tabs>
-          <button data-active>Ecological</button>
-          <button >Strain</button>
-		  <button>Empowerment</button>
-		  <button>Nudge</button>
+          <button data-active class="grooming ecological">Ecological</button>
+          <button class="grooming strain">Strain</button>
+  		  <button class="grooming empowerment">Empowerment</button>
+  		  <button class="grooming nudge">Nudge</button>
         </div>
 
         <div data-panes>
 		  <!-- ecological -->
-          <div class="datapane">
+          <div class="datapane grooming ecological">
 			  <div class="toc-desc">Account for the multiple environments that influence individuals and create the conditions for grooming.</div>
 			  
 			<div class="buttons">
@@ -226,38 +232,41 @@
 			  
 			  <div class="flex-container">
 
-				<div class="drag-column">
+				<div class="drag-column relationships">
 						<span class="drag-column-header">Strengthen Relationships with Family & Peers</span><div class="drag-inner-list"></div>		
 				</div>
-				<div class="drag-column">
+				<div class="drag-column literacy">
 						<span class="drag-column-header">Increase Tech Literacy and Skills</span><div class="drag-inner-list"></div>		
 				</div>
-				<div class="drag-column">
-						<span class="drag-column-header">Improve Self Esteem and Resilience</span><div class="drag-inner-list"></div>		
+				<div class="drag-column self-esteem">
+						<span class="drag-column-header">Improve Self Esteem, Empathy, Responsibility and Resilience</span><div class="drag-inner-list"></div>		
 				</div>
-				<div class="drag-column">
-						<span class="drag-column-header">Strengthen Offline Norms & Standards</span><div class="drag-inner-list"></div>		
+				<div class="drag-column offline-norms">
+						<span class="drag-column-header">Strengthen Offline Norms, Standards & Legislation</span><div class="drag-inner-list"></div>		
 				</div>
-				<div class="drag-column">
-						<span class="drag-column-header">Strengthen Online Norms & Standards</span><div class="drag-inner-list"></div>		
+				<div class="drag-column online-norms">
+						<span class="drag-column-header">Strengthen Online Norms, Standards & Legislation</span><div class="drag-inner-list"></div>		
 				</div>
-				<div class="drag-column">
+				<div class="drag-column awareness-support">
 						<span class="drag-column-header">Increase Awareness and Use of Support Systems</span><div class="drag-inner-list"></div>		
 				</div>
-				<div class="drag-column">
-						<span class="drag-column-header">Decrease Cybersexual Behavior</span><div class="drag-inner-list"></div>		
-				</div>
-				<div class="drag-column">
+				<div class="drag-column monitor-block">
 						<span class="drag-column-header">Monitor & Block</span><div class="drag-inner-list"></div>		
 				</div>
-				
+				<div class="drag-column reduce-stress">
+					<span class="drag-column-header">Reduce Depression and Anxiety</span><div class="drag-inner-list"></div>		
+				</div>
+				<div class="drag-column reduce-stress">
+					<span class="drag-column-header">Decrease Cybersexual Behavior</span><div class="drag-inner-list"></div>		
+				</div>
+		
 			</div>
 				
 
 			
 		</div>
 		<!-- strain -->
-		  	<div class="datapane">
+		  	<div class="datapane grooming strain">
 				<div class="toc-desc">Reduce the strains or frustrations that cause individuals to adopt grooming.</div>
 				
 				<div class="buttons">
@@ -268,10 +277,13 @@
 				<div class="flex-container">
 				
 				<div class="drag-column">
-						<span class="drag-column-header">Strengthen Relationships with Family & Peers</span><div class="drag-inner-list"></div>		
+						<span class="drag-column-header">Strengthen Relationships with Family & Peers</span><div class="drag-inner-list relationships"></div>		
 				</div>
 				<div class="drag-column">
-						<span class="drag-column-header">Improve Self Esteem and Resilience</span><div class="drag-inner-list"></div>		
+						<span class="drag-column-header">Improve Self Esteem, Empathy, Responsibility and Resilience</span><div class="drag-inner-list"></div>		
+				</div>
+				<div class="drag-column reduce-stress">
+					<span class="drag-column-header">Reduce Depression and Anxiety</span><div class="drag-inner-list"></div>		
 				</div>
 				<div class="drag-column">
 						<span class="drag-column-header">Decrease Cybersexual Behavior</span><div class="drag-inner-list"></div>		
@@ -283,7 +295,7 @@
 		  	</div>
 		
 		<!-- empowerment -->
-		  	<div class="datapane">
+		  	<div class="datapane grooming empowerment">
 				<div class="toc-desc">Redistribute power and promote agency and resiliency so individuals can deal with grooming.</div>
 				
 				<div class="buttons">
@@ -294,13 +306,13 @@
 				<div class="flex-container">
 				
 				<div class="drag-column">
-						<span class="drag-column-header">Strengthen Relationships with Family & Peers</span><div class="drag-inner-list"></div>		
+						<span class="drag-column-header">Strengthen Relationships with Family & Peers</span><div class="drag-inner-list relationships"></div>		
 				</div>
 				<div class="drag-column">
-						<span class="drag-column-header">Increase Tech Literacy and Skills</span><div class="drag-inner-list"></div>		
+						<span class="drag-column-header">Increase Tech Literacy and Skills</span><div class="drag-inner-list literacy"></div>		
 				</div>
 				<div class="drag-column">
-						<span class="drag-column-header">Improve Self Esteem and Resilience</span><div class="drag-inner-list"></div>		
+						<span class="drag-column-header">Improve Self Esteem, Empathy, Responsibility and Resilience</span><div class="drag-inner-list"></div>		
 				</div>
 				<div class="drag-column">
 						<span class="drag-column-header">Increase Awareness and Use of Support Systems</span><div class="drag-inner-list"></div>		
@@ -311,7 +323,7 @@
 
 			</div>
 		<!-- nudge -->
-		  	<div class="datapane">
+		  	<div class="datapane grooming nudge">
 				<div class="toc-desc">Influence individual behavior through positive reinforcement and indirect suggestion in order to reduce grooming.</div>
 				
 				<div class="buttons">

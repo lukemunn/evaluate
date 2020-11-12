@@ -66,7 +66,6 @@ drake.on('dragend', function(el) {
 	el.classList.remove('is-moving');
 
 	// Regenerate heatmap
-	console.log(el.id);
 	selectedIndicators.push(indicators[el.id]);
 	generateHeatmap();
 
@@ -98,3 +97,119 @@ $(document).on({
 		$(" #infopanel:before").hide();
     }
 }, ".drag-item");
+
+// Copy Ecological nodes
+document.addEventListener("tabbis", e => {
+
+	// DON'T DO THIS FOR NOW
+	// TRICKY TO ENSURE INDICATORS DRAGGED INTO DIFFERENT DIVS ARE CLONED CORRECTLY
+	// return;
+
+    let data = e.detail;
+	let cyberbullying = $(data.tab).hasClass('cyberbullying');
+	let ecological = $(data.tab).hasClass('ecological');
+	let strain = $(data.tab).hasClass('strain');
+	let empowerment = $(data.tab).hasClass('empowerment');
+	let nudge = $(data.tab).hasClass('nudge');
+	
+	// let cyberbullying = $(data.pane).hasClass('cyberbullying');
+	// let ecological = $(data.pane).hasClass('ecological');
+	// let strain = $(data.pane).hasClass('strain');
+	// let empowerment = $(data.pane).hasClass('empowerment');
+	// let nudge = $(data.pane).hasClass('nudge');
+	// Default, so return
+	// if (ecological)
+	// 	return;
+	if (cyberbullying) {
+		if (ecological) {
+			$('div.cyberbullying .relationships').show();
+			$('div.cyberbullying .literacy').show();
+			$('div.cyberbullying .self-esteem').show();
+			$('div.cyberbullying .offline-norms').show();
+			$('div.cyberbullying .online-norms').show();
+			$('div.cyberbullying .awareness-support').show();
+			$('div.cyberbullying .monitor-block').show();
+			$('div.cyberbullying .reduce-stress').show();
+		}
+		else if (strain) {
+			$('div.cyberbullying .relationships').show();
+			$('div.cyberbullying .literacy').hide();
+			$('div.cyberbullying .self-esteem').show();
+			$('div.cyberbullying .offline-norms').hide();
+			$('div.cyberbullying .online-norms').hide();
+			$('div.cyberbullying .awareness-support').hide();
+			$('div.cyberbullying .monitor-block').hide();
+			$('div.cyberbullying .reduce-stress').show();
+		}
+		else if (empowerment) {
+			$('div.cyberbullying .relationships').show();
+			$('div.cyberbullying .literacy').show();
+			$('div.cyberbullying .self-esteem').show();
+			$('div.cyberbullying .offline-norms').hide();
+			$('div.cyberbullying .online-norms').hide();
+			$('div.cyberbullying .awareness-support').show();
+			$('div.cyberbullying .monitor-block').hide();
+			$('div.cyberbullying .reduce-stress').hide();
+		}
+		else if (nudge) {
+			$('div.cyberbullying .relationships').hide();
+			$('div.cyberbullying .literacy').hide();
+			$('div.cyberbullying .self-esteem').hide();
+			$('div.cyberbullying .offline-norms').hide();
+			$('div.cyberbullying .online-norms').hide();
+			$('div.cyberbullying .awareness-support').show();
+			$('div.cyberbullying .monitor-block').show();
+			$('div.cyberbullying .reduce-stress').hide();
+		}
+		
+	}
+	else {
+		console.log('got here', strain)
+		if (ecological) {
+			$('div.grooming .relationships').show();
+			$('div.grooming .literacy').show();
+			$('div.grooming .self-esteem').show();
+			$('div.grooming .offline-norms').show();
+			$('div.grooming .online-norms').show();
+			$('div.grooming .awareness-support').show();
+			$('div.grooming .monitor-block').show();
+			$('div.grooming .reduce-stress').show();
+			$('div.grooming .decrease-cybersexual').show();
+		}
+		else if (strain) {
+			$('div.grooming .relationships').show();
+			$('div.grooming .literacy').hide();
+			$('div.grooming .self-esteem').show();
+			$('div.grooming .offline-norms').hide();
+			$('div.grooming .online-norms').hide();
+			$('div.grooming .awareness-support').hide();
+			$('div.grooming .monitor-block').hide();
+			$('div.grooming .reduce-stress').show();
+			$('div.grooming .decrease-cybersexual').show();
+		}
+		else if (empowerment) {
+			$('div.grooming .relationships').show();
+			$('div.grooming .literacy').show();
+			$('div.grooming .self-esteem').show();
+			$('div.grooming .offline-norms').hide();
+			$('div.grooming .online-norms').hide();
+			$('div.grooming .awareness-support').show();
+			$('div.grooming .monitor-block').hide();
+			$('div.grooming .reduce-stress').hide();
+			$('div.grooming .decrease-cybersexual').hide();
+		}
+		else if (nudge) {
+			$('div.grooming .relationships').hide();
+			$('div.grooming .literacy').hide();
+			$('div.grooming .self-esteem').hide();
+			$('div.grooming .offline-norms').hide();
+			$('div.grooming .online-norms').hide();
+			$('div.grooming .awareness-support').show();
+			$('div.grooming .monitor-block').show();
+			$('div.grooming .reduce-stress').hide();
+			$('div.grooming .decrease-cybersexual').hide();
+		}
+		
+	}
+
+}, false );

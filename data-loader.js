@@ -32,6 +32,24 @@ const THEORIES = [
     'strain', 
     'nudging'
 ];
+const FACTORS = [
+    // UPSTREAM CAUSES
+    'relationships', 
+    'literacy', 
+    'self-esteem', 
+    'offline-norms', 
+    'online-norms',
+    'awareness-support',
+    'monitor-block',
+    'reduce-stress',
+    'decrease-cybersexual',
+    // ISSUES
+    'cyberbullying-prevalence', 
+    'grooming-prevalence', 
+    // DOWNSTREAM IMPACTS
+    'bullying-impacts',  
+    'grooming-impacts', 
+];
 
 /**
  *  On load, called to load the auth2 library and API client library.
@@ -77,33 +95,34 @@ function initClient() {
 				/* redo variables based on simpler webtools spreadsheet */
                 let name = row[1];
                 let desc = row[2];
-				let factors = row[3].split(",");
+				let factors = row[3];
 				let theory = row[4];
 				
                 let plus = row[5];
                 let minus = row[6];
 				let cite = row[7];
 
-                    let indId = `indicator-${i+1}`;
-                    $('#indicators-list').append( 
-                        `<li id="${indId}" class="drag-item ${issue}">
-                            <h4>${name}</h4>
-                            <span class="desc">${desc}</span>
-                            <span class="plus">${plus}</span>
-                            <span class="minus">${minus}</span>
-                            <span class="cite">${cite}</span>
-                        </li>`
-                    );
-                    indicators[indId] = {
-                        id: indId,
-                        name: name,
-                        issue: issue,
-                        desc: desc,
-                        plus: plus,
-                        minus: minus,
-                        cite: cite,                       
-                        theory: theory,                       
-                    };
+                let indId = `indicator-${i+1}`;
+                $('#indicators-list').append( 
+                    `<li id="${indId}" class="drag-item ${issue}">
+                        <h4>${name}</h4>
+                        <span class="desc">${desc}</span>
+                        <span class="plus">${plus}</span>
+                        <span class="minus">${minus}</span>
+                        <span class="cite">${cite}</span>
+                    </li>`
+                );
+                indicators[indId] = {
+                    id: indId,
+                    name: name,
+                    issue: issue,
+                    desc: desc,
+                    plus: plus,
+                    minus: minus,
+                    cite: cite,                       
+                    theory: theory,                       
+                    factors: factors,                       
+                };
             }
 			
 			$(document).on({
@@ -137,7 +156,25 @@ function initClient() {
 }
 
 function populateIndicators() {
-	alert ('TBD');
+    console.log('TBD');
+    let values = Object.values(indicators);
+    if (values.length <= 0)
+        return;
+    for (let i = 0; i < values.length; i++) {
+        let indicator = values[i];
+        let factors = indicator.factors.split(',');
+        for (let j = 0; j < factors.length; j++) {
+            let factor = factors[j].trim();
+            if (factor.length > 0) {
+                let source = $(`#${indicator.id}`);
+                let targetC = $(`.cyberbullying.ecological > .flex-container > .${factor}`);
+                let targetG = $(`.grooming.ecological > .flex-container > .${factor}`);
+                source.clone().appendTo(targetC);
+                source.clone().appendTo(targetG);
+            }
+        }
+        
+    }
 }
 
 
