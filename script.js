@@ -164,7 +164,6 @@ document.addEventListener("tabbis", e => {
 		
 	}
 	else {
-		console.log('got here', strain)
 		if (ecological) {
 			$('div.grooming .relationships').show();
 			$('div.grooming .literacy').show();

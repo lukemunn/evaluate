@@ -48,7 +48,7 @@ const FACTORS = [
     'cyberbullying-prevalence', 
     'grooming-prevalence', 
     // DOWNSTREAM IMPACTS
-    'bullying-impacts',  
+    'cyberbullying-impacts',  
     'grooming-impacts', 
 ];
 
@@ -169,10 +169,8 @@ function populateIndicators() {
             let factor = factors[j].trim();
             if (factor.length > 0) {
                 let source = $(`#${indicator.id}`);
-                let targetC = $(`.cyberbullying.ecological > .flex-container > .${factor} > .drag-inner-list`);
-                let targetG = $(`.grooming.ecological > .flex-container > .${factor} > .drag-inner-list`);
-                source.clone().appendTo(targetC);
-                source.clone().appendTo(targetG);
+                let target = $(`.topicpanes .${factor} > .drag-inner-list`);
+                source.clone().appendTo(target);
             }
         }
     }
