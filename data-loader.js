@@ -194,26 +194,156 @@ function populateIndicators() {
 function depopulateIndicators() {
     $('.cyberbullying .drag-inner-list').empty();
     $('.grooming .drag-inner-list').empty();
+    // $('.grooming .drag-inner-list').empty();
 
     prepopulated = false;
 }
 
+function getBase64Image(img) {
+    // Create an empty canvas element
+    var canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+
+    // Copy the image contents to the canvas
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+
+    // Get the data-URL formatted image
+    // Firefox supports PNG and JPEG. You could check img.src to
+    // guess the original format, but be aware the using "image/jpg"
+    // will re-encode the image.
+    return canvas.toDataURL("image/png");
+}
 
 function generateReport() {
 
     const doc = new jsPDF();
     let yo = 40;
 
+    
+
     doc.setFontSize(16);
     doc.setTextColor(28,171,226);
     doc.setFont(doc.getFont().fontName, "bold");
     doc.text("Cyberbullying", 20, 20);
-    // Do causal diagram
 
+    doc.setFontSize(8);
+    doc.setTextColor(0, 0, 0);
+    doc.setFont(doc.getFont().fontName, "normal");
+
+    
+    // Do causal diagram
+    let facCount = 0, yOffset = 0, maxY = 0;
+    for (let i = 0; i < FACTORS.length - 4; i++) {
+        let factor = FACTORS[i];
+        let draggable = $(`.cyberbullying.ecological > .flex-container > .${factor}`);
+        let heading = draggable.find('.drag-column-header').text();
+        let selected = draggable.find('li > h4');
+        let ilen = selected !== undefined ? selected.length : 0;
+        if (ilen <= 0)
+            continue;
+
+
+        let rectW = 42;
+        let rectH = 12 + (ilen) * 6;
+        doc.setFont(doc.getFont().fontName, "bold");
+        doc.setFontSize(8);
+        let yoh = 30 + yOffset;
+        let yohn = printAndOffset(doc, heading, 28, 22 + facCount * (rectW + 2), yoh, 5);
+        let headingOffsetY = (yohn - yoh);
+        rectH += headingOffsetY;
+        doc.setFont(doc.getFont().fontName, "normal");
+        doc.setFontSize(7);
+        let lineOffset = 0;
+        for (let j = 0; j < ilen; j++) {
+            let indText = selected[j].textContent;
+            let yo = 36 + yOffset + headingOffsetY + lineOffset + j * 6;
+            let yon = printAndOffset(doc, indText, 32, 22 + facCount * (rectW + 2), yo, 3);
+            rectH += (yon - yo);
+            lineOffset += (yon - yo);
+        }
+        if (rectH > maxY)
+            maxY = rectH;
+        doc.setDrawColor(28,171,226);
+        // doc.setDrawColor();
+        doc.roundedRect(20 + facCount * (rectW + 2), 24 + yOffset, rectW, rectH, 3, 3, 'S');
+
+        // Wrap around
+        facCount++;
+        if (facCount % 4 == 0) {
+            facCount = 0;
+            yOffset += maxY + 2;
+            maxY = 0;
+        }
+    }
+    
+    // Add image
+    const img = new Image();
+    img.src = 'down-arrow.png';
+    let arrowImg = getBase64Image(img);
+    doc.addImage(arrowImg, 'PNG', 102, 90 + yOffset, 10, 10);
+
+
+    let prevalence = $(`.cyberbullying-prevalence`).find('li > h4');
+    let plen = prevalence !== undefined ? prevalence.length : 0;
+    doc.setFont(doc.getFont().fontName, "bold");
+    doc.setFontSize(8);
+    doc.text("Prevalence", 82, 112 + yOffset);
+    doc.setFont(doc.getFont().fontName, "normal");
+    doc.setFontSize(7);
+    doc.roundedRect(80, 106 + yOffset, 56, 20 + plen * 8, 3, 3, 'S');
+    for (let j = 0; j < plen; j++) {
+        let indText = prevalence[j].textContent;
+        // doc.text(indText, 120, 140 + j * 8);
+        let yo = 118 + yOffset + j * 8;
+        let yon = printAndOffset(doc, indText, 52, 82, yo, 5);
+        yOffset += (yon - yo);
+    }
+    doc.addImage(arrowImg, 'PNG', 102, 154 + yOffset, 10, 10);
+
+    let impacts = $(`.cyberbullying-impacts`).find('li > h4');
+    let mlen = impacts !== undefined ? impacts.length : 0;
+    doc.setFont(doc.getFont().fontName, "bold");
+    doc.setFontSize(8);
+    doc.text("Impacts", 82, 176 + yOffset);
+    doc.setFont(doc.getFont().fontName, "normal");
+    doc.setFontSize(7);
+    doc.roundedRect(80, 170 + yOffset, 56, 20 + mlen * 8, 3, 3, 'S');
+    for (let j = 0; j < mlen; j++) {
+        let indText = prevalence[j].textContent;
+        // doc.text(indText, 120, 240 + j * 8);
+        let yo = 182 + yOffset + j * 8;
+        let yon = printAndOffset(doc, indText, 52, 82, yo, 5);
+        yOffset += (yon - yo);
+    }
+
+    doc.addPage();
     // Add Factor Indicators
     for (let i = 0; i < FACTORS.length; i++) {
         let factor = FACTORS[i];
         let draggable = $(`.cyberbullying.ecological > .flex-container > .${factor}`);
+        let heading = draggable.find('.drag-column-header').text();
+
+        if (i > 0)
+            doc.addPage();
+        doc.setFontSize(13);
+        doc.setTextColor(28,171,226);
+        doc.setFont(doc.getFont().fontName, "bold");
+        doc.text(heading, 20, 20);
+        generateIndicators(doc, draggable);
+    }
+    
+    doc.addPage();
+    doc.setFontSize(16);
+    doc.setTextColor(28,171,226);
+    doc.setFont(doc.getFont().fontName, "bold");
+    doc.text("Grooming", 20, 20);
+    
+    // Add Factor Indicators
+    for (let i = 0; i < FACTORS.length; i++) {
+        let factor = FACTORS[i];
+        let draggable = $(`.grooming.ecological > .flex-container > .${factor}`);
         let heading = draggable.find('.drag-column-header').text();
 
         doc.addPage();
@@ -292,7 +422,7 @@ async function mergePages(myBuffer) {
 	
 };
 
-function printAndOffset(doc, str, reflow, xo, yo) {
+function printAndOffset(doc, str, reflow, xo, yo, lead) {
 
     // Re-flow every 80 characters, or the previous space.
     let len = str.length;
@@ -310,7 +440,7 @@ function printAndOffset(doc, str, reflow, xo, yo) {
         doc.text(tmp, xo, yo);
 
         if (j < len - offset)
-            yo += 5;
+            yo += lead;
         
     }
 
@@ -356,14 +486,14 @@ function generateIndicators(doc, element) {
         doc.text("Strengths: ", 20, yo);
         doc.setFont(doc.getFont().fontName, "normal");
         // doc.text(plus.innerText.toString(), fieldOffset, yo);
-        yo = printAndOffset(doc, plus.innerText.toString(), reflow, fieldOffset, yo);
+        yo = printAndOffset(doc, plus.innerText.toString(), reflow, fieldOffset, yo, 5);
 
         yo += 6;
         doc.setFont(doc.getFont().fontName, "bold");
         doc.text("Weaknesses: ", 20, yo);
         doc.setFont(doc.getFont().fontName, "normal");
         // doc.text(minus.innerText.toString(), fieldOffset, yo);
-        yo = printAndOffset(doc, minus.innerText.toString(), reflow, fieldOffset, yo);
+        yo = printAndOffset(doc, minus.innerText.toString(), reflow, fieldOffset, yo, 5);
 
         /*
         yo += 6;
@@ -381,7 +511,7 @@ function generateIndicators(doc, element) {
         // doc.text(cite.innerText.toString(), fieldOffset, yo);
         let citeText = cite.innerText.toString();
         citeText = citeText.trim().replace('\n', ' ');
-        yo = printAndOffset(doc, citeText, reflow, fieldOffset, yo);
+        yo = printAndOffset(doc, citeText, reflow, fieldOffset, yo, 5);
 
         yo += 6;
         doc.setFont(doc.getFont().fontName, "bold");
@@ -391,7 +521,7 @@ function generateIndicators(doc, element) {
         for (let i = 0; i < measuresText.length; i++) {
             let mt = measuresText[i];
             mt = mt.trim().replace('\n', ' ');
-            yo = printAndOffset(doc, mt, reflow, fieldOffset, yo);
+            yo = printAndOffset(doc, mt, reflow, fieldOffset, yo, 5);
 
         }
         
