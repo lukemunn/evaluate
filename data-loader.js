@@ -33,6 +33,18 @@ const THEORIES = [
     'strain', 
     'nudging'
 ];
+const THEORY_DESCRIPTIONS = [
+    "Account for the multiple environments that influence individuals and create the conditions for cyberbullying.", 
+    "Reduce the strains or frustrations that cause individuals to adopt cyberbullying.", 
+    "Redistribute power and promote agency and resiliency so individuals can deal with cyberbullying.", 
+    "Influence individual behavior through positive reinforcement and indirect suggestion in order to reduce cyberbullying.",
+
+    "Account for the multiple environments that influence individuals and create the conditions for grooming.",
+    "Reduce the strains or frustrations that cause individuals to adopt grooming.",
+    "Redistribute power and promote agency and resiliency so individuals can deal with grooming.",
+    "Influence individual behavior through positive reinforcement and indirect suggestion in order to reduce grooming."
+];
+
 const FACTORS = [
     // UPSTREAM CAUSES
     'relationships', 

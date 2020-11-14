@@ -122,6 +122,8 @@ document.addEventListener("tabbis", e => {
 	// 	return;
 	if (cyberbullying) {
 		if (ecological) {
+			$('div.cyberbullying.ecological .toc-desc').text(THEORY_DESCRIPTIONS[0]);
+			$('div.cyberbullying .relationships').show();
 			$('div.cyberbullying .relationships').show();
 			$('div.cyberbullying .literacy').show();
 			$('div.cyberbullying .self-esteem').show();
@@ -132,6 +134,7 @@ document.addEventListener("tabbis", e => {
 			$('div.cyberbullying .reduce-stress').show();
 		}
 		else if (strain) {
+			$('div.cyberbullying.ecological .toc-desc').text(THEORY_DESCRIPTIONS[1]);
 			$('div.cyberbullying .relationships').show();
 			$('div.cyberbullying .literacy').hide();
 			$('div.cyberbullying .self-esteem').show();
@@ -142,6 +145,7 @@ document.addEventListener("tabbis", e => {
 			$('div.cyberbullying .reduce-stress').show();
 		}
 		else if (empowerment) {
+			$('div.cyberbullying.ecological .toc-desc').text(THEORY_DESCRIPTIONS[2]);
 			$('div.cyberbullying .relationships').show();
 			$('div.cyberbullying .literacy').show();
 			$('div.cyberbullying .self-esteem').show();
@@ -152,6 +156,7 @@ document.addEventListener("tabbis", e => {
 			$('div.cyberbullying .reduce-stress').hide();
 		}
 		else if (nudge) {
+			$('div.cyberbullying.ecological .toc-desc').text(THEORY_DESCRIPTIONS[3]);
 			$('div.cyberbullying .relationships').hide();
 			$('div.cyberbullying .literacy').hide();
 			$('div.cyberbullying .self-esteem').hide();
@@ -165,6 +170,7 @@ document.addEventListener("tabbis", e => {
 	}
 	else {
 		if (ecological) {
+			$('div.grooming.ecological .toc-desc').text(THEORY_DESCRIPTIONS[4]);
 			$('div.grooming .relationships').show();
 			$('div.grooming .literacy').show();
 			$('div.grooming .self-esteem').show();
@@ -176,6 +182,7 @@ document.addEventListener("tabbis", e => {
 			$('div.grooming .decrease-cybersexual').show();
 		}
 		else if (strain) {
+			$('div.grooming.ecological .toc-desc').text(THEORY_DESCRIPTIONS[5]);
 			$('div.grooming .relationships').show();
 			$('div.grooming .literacy').hide();
 			$('div.grooming .self-esteem').show();
@@ -187,6 +194,7 @@ document.addEventListener("tabbis", e => {
 			$('div.grooming .decrease-cybersexual').show();
 		}
 		else if (empowerment) {
+			$('div.grooming.ecological .toc-desc').text(THEORY_DESCRIPTIONS[6]);
 			$('div.grooming .relationships').show();
 			$('div.grooming .literacy').show();
 			$('div.grooming .self-esteem').show();
@@ -198,6 +206,7 @@ document.addEventListener("tabbis", e => {
 			$('div.grooming .decrease-cybersexual').hide();
 		}
 		else if (nudge) {
+			$('div.grooming.ecological .toc-desc').text(THEORY_DESCRIPTIONS[7]);
 			$('div.grooming .relationships').hide();
 			$('div.grooming .literacy').hide();
 			$('div.grooming .self-esteem').hide();
