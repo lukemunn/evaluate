@@ -250,6 +250,7 @@ function generateReport() {
 
 
         let rectW = 42;
+        // Do once to calculate
         let rectH = 12 + (ilen) * 6;
         doc.setFont(doc.getFont().fontName, "bold");
         doc.setFontSize(8);
@@ -269,9 +270,54 @@ function generateReport() {
         }
         if (rectH > maxY)
             maxY = rectH;
+
         doc.setDrawColor(28,171,226);
-        // doc.setDrawColor();
-        doc.roundedRect(20 + facCount * (rectW + 2), 24 + yOffset, rectW, rectH, 3, 3, 'S');
+        if (factor === "relationships")
+            doc.setFillColor("#ffc400");
+        if (factor === "literacy")
+            doc.setFillColor("#fbc920");
+        if (factor === "self-esteem")
+            doc.setFillColor("#eccd54");
+        if (factor === "offline-norms")
+            doc.setFillColor("#dbd07a");
+        if (factor === "online-norms")
+            doc.setFillColor("#c5d39c");
+        if (factor === "awareness-support")
+            doc.setFillColor("#a8d7bd");
+        if (factor === "monitor-block")
+            doc.setFillColor("#7fdade");
+        if (factor === "reduce-stress")
+            doc.setFillColor("#1cdeff");
+        if (factor === "decrease-cybersexual")
+            doc.setFillColor("#00e3ff");
+        if (factor === "cyberbullying-prevalence")
+            doc.setFillColor("#d7b1e2");
+        if (factor === "grooming-prevalence")
+            doc.setFillColor("#d7b1e2");
+        if (factor === "cyberbullying-impacts")
+            doc.setFillColor("#cfb3a5");
+        if (factor === "grooming-impacts")
+            doc.setFillColor("#cfb3a5");
+
+        doc.roundedRect(20 + facCount * (rectW + 2), 24 + yOffset, rectW, rectH, 3, 3, 'DF');
+        doc.setFillColor("#ffffff");
+
+        // // Do again to write over the rect
+        rectH = 12 + (ilen) * 6;
+        doc.setFont(doc.getFont().fontName, "bold");
+        doc.setFontSize(8);
+        yoh = 30 + yOffset;
+        yohn = printAndOffset(doc, heading, 28, 22 + facCount * (rectW + 2), yoh, 5);
+        headingOffsetY = (yohn - yoh);
+        doc.setFont(doc.getFont().fontName, "normal");
+        doc.setFontSize(7);
+        lineOffset = 0;
+        for (let j = 0; j < ilen; j++) {
+            let indText = selected[j].textContent;
+            let yo = 36 + yOffset + headingOffsetY + lineOffset + j * 6;
+            let yon = printAndOffset(doc, indText, 32, 22 + facCount * (rectW + 2), yo, 3);
+            lineOffset += (yon - yo);
+        }
 
         // Wrap around
         facCount++;
@@ -291,12 +337,13 @@ function generateReport() {
 
     let prevalence = $(`.cyberbullying-prevalence`).find('li > h4');
     let plen = prevalence !== undefined ? prevalence.length : 0;
+    doc.setFillColor("#d7b1e2");
+    doc.roundedRect(80, 106 + yOffset, 56, 20 + plen * 8, 3, 3, 'DF');
     doc.setFont(doc.getFont().fontName, "bold");
     doc.setFontSize(8);
     doc.text("Prevalence", 82, 112 + yOffset);
     doc.setFont(doc.getFont().fontName, "normal");
     doc.setFontSize(7);
-    doc.roundedRect(80, 106 + yOffset, 56, 20 + plen * 8, 3, 3, 'S');
     for (let j = 0; j < plen; j++) {
         let indText = prevalence[j].textContent;
         // doc.text(indText, 120, 140 + j * 8);
@@ -308,12 +355,13 @@ function generateReport() {
 
     let impacts = $(`.cyberbullying-impacts`).find('li > h4');
     let mlen = impacts !== undefined ? impacts.length : 0;
+    doc.setFillColor("#cfb3a5");
+    doc.roundedRect(80, 170 + yOffset, 56, 20 + mlen * 8, 3, 3, 'DF');
     doc.setFont(doc.getFont().fontName, "bold");
     doc.setFontSize(8);
     doc.text("Impacts", 82, 176 + yOffset);
     doc.setFont(doc.getFont().fontName, "normal");
     doc.setFontSize(7);
-    doc.roundedRect(80, 170 + yOffset, 56, 20 + mlen * 8, 3, 3, 'S');
     for (let j = 0; j < mlen; j++) {
         let indText = prevalence[j].textContent;
         // doc.text(indText, 120, 240 + j * 8);
