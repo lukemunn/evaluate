@@ -409,58 +409,97 @@ ul.drag-inner-list#drag-4 {
 }
 
 
-
-
-
-
-
-
+/* color palette for factors */
+/*
+--independence: #565264ff;
+--old-lavender: #706677ff;
+--english-lavender: #a6808cff;
+--silver-pink: #ccb7aeff;
+--timberwolf: #d6cfcbff;
+--non-photo-blue: #8edef6ff;
+--sky-blue-crayola: #65d3e2ff;
+--light-sea-green: #00a9a5ff;
+--blue-munsell: #359cacff;
+--star-command-blue: #287ab8ff;
+*/
+/*
+--champagne-pink: #eddcd2ff;
+--linen: #fff1e6ff;
+--pale-pink: #fde2e4ff;
+--mimi-pink: #fad2e1ff;
+--powder-blue: #c5deddff;
+--mint-cream: #dbe7e4ff;
+--isabelline: #f0efebff;
+--alice-blue: #d6e2e9ff;
+--beau-blue: #bcd4e6ff;
+--pale-cerulean: #99c1deff;
+*/
+/*
 .drag-item.relationships {
-  background-color: #ffc400;
+	border-color: #565264ff;
 }
 .drag-item.literacy {
-  background-color: #fbc920;
-
+	border-color: #706677ff;
 }
 .drag-item.self-esteem {
-  background-color: #eccd54;
-
+	border-color: #a6808cff;
 }
 .drag-item.offline-norms {
-  background-color: #dbd07a;
-
+  border-color: #ccb7aeff;
 }
 .drag-item.online-norms {
-  background-color: #c5d39c;
-
+  border-color: #d6cfcbff;
 }
 .drag-item.awareness-support {
-  background-color: #a8d7bd;
-
+  border-color: #8edef6ff;
 }
 .drag-item.monitor-block {
-  background-color: #7fdade;
-
+  border-color: #65d3e2ff;
 }
 .drag-item.reduce-stress {
-  background-color: #1cdeff;
-
+  border-color: #00a9a5ff;
+}
+*/
+.drag-item {
+	border: 1px solid silver;
+}
+.drag-item.relationships {
+  background-color: #eddcd2;
+}
+.drag-item.literacy {
+  background-color: #fff1e6;
+}
+.drag-item.self-esteem {
+  background-color: #fde2e4;
+}
+.drag-item.offline-norms {
+  background-color: #fad2e1;
+}
+.drag-item.online-norms {
+  background-color: #c5dedd;
+}
+.drag-item.awareness-support {
+  background-color: #dbe7e4;
+}
+.drag-item.monitor-block {
+  background-color: #f0efeb;
+}
+.drag-item.reduce-stress {
+  background-color: #d6e2e9;
 }
 .drag-item.decrease-cybersexual {
-  background-color: #00e3ff;
+  background-color: #bcd4e6;
 }
-
 .drag-item.cyberbullying-prevalence {
-  background-color: #d7b1e2;
+  background-color: #93C2C4;
 }
 .drag-item.grooming-prevalence {
-  background-color: #d7b1e2;
+  background-color: #93C2C4;
 }
-
 .drag-item.cyberbullying-impacts {
-  background-color: #cfb3a5;
+  background-color: #F5AFAB;
 }
 .drag-item.grooming-impacts {
-  
-  background-color: #cfb3a5;
+  background-color: #F5AFAB;
 }
+
