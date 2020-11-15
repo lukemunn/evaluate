@@ -194,8 +194,11 @@ function populateIndicators() {
 function depopulateIndicators() {
     $('.cyberbullying .drag-inner-list').empty();
     $('.grooming .drag-inner-list').empty();
-    // $('.grooming .drag-inner-list').empty();
-
+    $('.cyberbullying-prevalence .drag-inner-list').empty();
+    $('.grooming-prevalence .drag-inner-list').empty();
+    $('.cyberbullying-impacts .drag-inner-list').empty();
+    $('.grooming-impacts .drag-inner-list').empty();
+    
     prepopulated = false;
 }
 
