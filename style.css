@@ -407,3 +407,60 @@ ul.drag-inner-list#drag-4 {
   width:100%; 
   height:100%;
 }
+
+
+
+
+
+
+
+
+.drag-item.relationships {
+  background-color: #ffc400;
+}
+.drag-item.literacy {
+  background-color: #fbc920;
+
+}
+.drag-item.self-esteem {
+  background-color: #eccd54;
+
+}
+.drag-item.offline-norms {
+  background-color: #dbd07a;
+
+}
+.drag-item.online-norms {
+  background-color: #c5d39c;
+
+}
+.drag-item.awareness-support {
+  background-color: #a8d7bd;
+
+}
+.drag-item.monitor-block {
+  background-color: #7fdade;
+
+}
+.drag-item.reduce-stress {
+  background-color: #1cdeff;
+
+}
+.drag-item.decrease-cybersexual {
+  background-color: #00e3ff;
+}
+
+.drag-item.cyberbullying-prevalence {
+  background-color: #d7b1e2;
+}
+.drag-item.grooming-prevalence {
+  background-color: #d7b1e2;
+}
+
+.drag-item.cyberbullying-impacts {
+  background-color: #cfb3a5;
+}
+.drag-item.grooming-impacts {
+  
+  background-color: #cfb3a5;
+}
