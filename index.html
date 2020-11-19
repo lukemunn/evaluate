@@ -4,7 +4,7 @@
 	
 	<meta charset="utf-8"/>
 	
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 	
 	<script src="jquery.min.js"></script>	
 
@@ -23,6 +23,69 @@
 	
 	<link rel="stylesheet" href="tabs.css">
 	
+	<link rel="stylesheet" href="swiper-bundle.css">
+	
+	<!-- swiper styling -->
+    <style>
+      html,
+      body {
+        position: relative;
+        height: 100%;
+      }
+	  
+      .swiper-container {
+        width: 80%;
+        height: 80%;
+  	  margin: 0 10%;
+  	  padding: 5% 0;
+	  position: absolute;
+	  z-index: 99;
+	  left: 0;
+	  top: 0;
+      }
+	  
+	  .swiper-overlay {
+		  width: 100%;
+		  height: 100%;
+		  position: absolute;
+		  background-color: rgba(255,255,255,0.9);
+		  left: 0;
+		  top: 0;
+		  z-index: 98;
+	  }
+	
+
+      .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+		border: 2px solid #ccc;
+
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+      }
+	
+  	.swiper-slide p {
+  		margin: 20%;
+  		line-height: 150%;
+  	}
+  	.swiper-slide button {
+		font-size: 15px;
+		margin: 20px 0;
+  	}
+    </style>
+	
 	<title>Evaluate Prototype</title>
 	
 	</head>
@@ -40,6 +103,53 @@
     <div class="report-fixed">Hello World!</div>
 </section>
 
+  <!-- Swiper -->
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">	  
+		  <p>Many programs aim to address cyberbullying and online grooming, 
+		  changing behavior and creating safer spaces for children online. <br/>But do they work?<br/><br/> 
+		  This web tool helps organizations produce an <b>evaluation framework</b> - 
+		  a holistic, evidence-based way of measuring if a programme is effective.</p>
+	  </div>
+      <div class="swiper-slide">
+		  <p>
+			  <img src="img1.png" /><br/><br/>
+			  We'll provide a list of <b>indicators</b> based on studies and past projects. 
+	  	  	An indicator is a specific way to measure how a program is doing.
+			</p>
+  	  </div>
+      <div class="swiper-slide">
+	  		<p>
+				<img src="img2.png" /><br/><br/>
+				We also set out <b>Theories of Change</b> - models setting out how and why change should happen in a particular context.
+			</p>
+	  </div>
+      <div class="swiper-slide">
+	  		<p><img src="img3.png" /><br/><br/>
+				Some Theories concentrate on influencing behavior at a micro level, others strive to account for multiple layers and scales. 
+	  Choose the one that fits your organization's aims and abilities.</p>
+  	  </div>
+      <div class="swiper-slide">
+      		<p><img src="img4.png" /><br/><br/>
+				To create your evaluation framework, just drag and drop indicators into the boxes. Alternatively hit the <b>Prepopulate</b> button to auto-fill boxes, then customize by dragging indicators out.</p>
+      </div>
+      <div class="swiper-slide">
+		  	<p><img src="img5.png" /><br/><br/>
+				When you're finished, hit the <b>Generate PDF</b> button to create a document with your custom framework plus tips for best-practice evaluation.
+				<br/>
+				<button class="button" id="getstarted">Get Started</button></p>
+	  </div>
+    </div>
+	<!-- Add Pagination -->
+	    <div class="swiper-pagination"></div>
+    <!-- Add Arrows -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+  <!-- end swiper -->
+
+	<div class="swiper-overlay"></div>
 
 
 		
@@ -394,6 +504,24 @@
 
 <footer>
 	
+    <!-- Swiper JS -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+      var swiper = new Swiper('.swiper-container', {		
+          pagination: {
+            el: '.swiper-pagination',
+          },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+      });
+    </script>
+	  
+	  
+	
 	<script src="tabbis.es6.js"></script>
     <script>
       tabbis({
@@ -415,6 +543,11 @@
 			
 
 			$(".drag-container").show();
+			
+			$("#getstarted").click(function(){
+				$(".swiper-container").fadeOut(); 
+				$(".swiper-overlay").fadeOut(); 
+			}); 
 
 			$(".generateButton").click(function(){
 				generateReport();
