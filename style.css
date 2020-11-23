@@ -53,7 +53,7 @@ button:hover {
 /* put the buttons always on top right and toc description never overlap */
 .toc-desc {
 	font-weight: normal;
-	color: #333;
+	color: #555;
 	padding-bottom: 1.5rem;
 	width: calc(100% - 250px);
 }
@@ -117,7 +117,8 @@ button:hover {
   margin-bottom: 10px;
   position: relative;
   background: none;
-  border: 1px solid #999;
+  /*border: 1px solid #999;*/
+  background: #dedede;
   overflow: hidden;
   min-width: 235px;
 }
@@ -148,7 +149,7 @@ button:hover {
   padding: 10px;
   line-height: 135%;
   background: #999;
-  color: white;
+  color: #444;
   font-weight: normal;
 }
 
@@ -392,7 +393,7 @@ ul.drag-inner-list#drag-4 {
 	height: 600px;
     max-height: 600px !important; 
     overflow-y: scroll;	
-
+	background-color: #efefef;
 }
 
 
@@ -460,46 +461,111 @@ ul.drag-inner-list#drag-4 {
   border-color: #00a9a5ff;
 }
 */
+
+.swiper-container, .swiper-overlay {
+	display: none;
+}
+
+/* new brighter color scheme */
+/* CSS HEX */
+:root {
+--skobeloff: #98D8E7ff;
+--illuminating-emerald: #1CABE2ff;
+--caribbean-green: #00c49aff;
+--mantis: #7cd383ff;
+--naples-yellow: #f8e16cff;
+--deep-champagne: #fcd290ff;
+--melon: #ffc2b4ff;
+--vivid-tangerine: #fda98eff;
+--coral: #B8ADC0ff;
+}
+
 .drag-item {
-	border: 1px solid silver;
+	border: 1px solid #dedede;
 }
+
 .drag-item.relationships {
-  background-color: #eddcd2;
+  border-left: 2px solid var(--caribbean-green);
 }
+.relationships .drag-column-header {
+	background: var(--caribbean-green);
+}
+
 .drag-item.literacy {
-  background-color: #fff1e6;
+  border-left: 2px solid var(--mantis);
 }
+.literacy .drag-column-header {
+	background: var(--mantis);
+}
+
 .drag-item.self-esteem {
-  background-color: #fde2e4;
+  border-left: 2px solid var(--naples-yellow);
 }
+.self-esteem .drag-column-header {
+	background: var(--naples-yellow);
+}
+
 .drag-item.offline-norms {
-  background-color: #fad2e1;
+  border-left: 2px solid var(--deep-champagne);
 }
+.offline-norms .drag-column-header {
+	background: var(--deep-champagne);
+}
+
 .drag-item.online-norms {
-  background-color: #c5dedd;
+  border-left: 2px solid var(--melon);
 }
+.online-norms .drag-column-header {
+	background: var(--melon);
+}
+
 .drag-item.awareness-support {
-  background-color: #dbe7e4;
+  border-left: 2px solid var(--vivid-tangerine);
 }
+.awareness-support .drag-column-header {
+	background: var(--vivid-tangerine);
+}
+
 .drag-item.monitor-block {
-  background-color: #f0efeb;
+    border-left: 2px solid var(--coral);
 }
+.monitor-block .drag-column-header {
+	background: var(--coral);
+}
+
+/* ignore these two for now */
 .drag-item.reduce-stress {
   background-color: #d6e2e9;
 }
 .drag-item.decrease-cybersexual {
   background-color: #bcd4e6;
 }
+
 .drag-item.cyberbullying-prevalence {
-  background-color: #93C2C4;
+  border-left: 2px solid var(--illuminating-emerald);
 }
+.cyberbullying-prevalence .drag-column-header {
+	background: var(--illuminating-emerald);
+}
+
 .drag-item.grooming-prevalence {
-  background-color: #93C2C4;
+  border-left: 2px solid var(--illuminating-emerald);
 }
+.grooming-prevalence .drag-column-header {
+	background: var(--illuminating-emerald);
+}
+
 .drag-item.cyberbullying-impacts {
-  background-color: #F5AFAB;
+  border-left: 2px solid var(--skobeloff);
 }
+.cyberbullying-impacts .drag-column-header {
+	background: var(--skobeloff);
+}
+
 .drag-item.grooming-impacts {
-  background-color: #F5AFAB;
+  border-left: 2px solid var(--skobeloff);
+}
+.grooming-impacts .drag-column-header {
+	background: var(--skobeloff);
 }
 
