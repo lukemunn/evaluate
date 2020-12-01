@@ -3,10 +3,10 @@ var PDFDocument = PDFLib.PDFDocument;
 
 const { jsPDF } = window.jspdf;
 
-CLIENT_ID = '559576953817-0drd9ji65as2gc750tpvuj5hcfglsrod.apps.googleusercontent.com';
-API_KEY = 'AIzaSyDJqo5JL9MxUqHBVdkAn6DhgKcfGaVam4w';
-SPREADSHEET_ID = '1NLdHWSQjWVZKCyQxjDx3jK9FbfFGvl5YGCxFSJnN1lQ';
-INDICATOR_RANGE = "'Indicators webtool'!A3:U100"
+var CLIENT_ID = '559576953817-0drd9ji65as2gc750tpvuj5hcfglsrod.apps.googleusercontent.com';
+var API_KEY = 'AIzaSyDJqo5JL9MxUqHBVdkAn6DhgKcfGaVam4w';
+var SPREADSHEET_ID = '1NLdHWSQjWVZKCyQxjDx3jK9FbfFGvl5YGCxFSJnN1lQ';
+var INDICATOR_RANGE = "'Indicators webtool'!A3:U100"
 
 // Dynamic loading?
 // $.get('/credentials.json').then((response) => {
