@@ -1,24 +1,10 @@
 
-/*
-var containers = new Array();
-containers.push(document.getElementById('drag-1'));
-containers.push(document.getElementById('drag-2'));
-containers.push(document.getElementById('drag-3'));
-containers.push(document.getElementById('drag-4'));
-containers.push(document.getElementById('drag-5'));
-
-var containersRemoveable = new Array();
-containersRemoveable.push(document.getElementById('drag-1'));
-containersRemoveable.push(document.getElementById('drag-2'));
-containersRemoveable.push(document.getElementById('drag-3'));
-containersRemoveable.push(document.getElementById('drag-4'));
-*/
-var containers = $( ".drag-inner-list" ).toArray();
+let containers = $( ".drag-inner-list" ).toArray();
 containers.push(document.getElementById('indicators-list'));
 
-var containersRemoveable = $( ".drag-inner-list" ).toArray();
+let containersRemoveable = $( ".drag-inner-list" ).toArray();
 
-var drake = dragula({ 
+let drake = dragula({ 
 	containers: containers,
 	revertOnSpill: true,
 	copy: true, 
@@ -72,7 +58,7 @@ drake.on('dragend', function(el) {
 });
 
 // Another dragula instance 
-var wyvern = dragula({ 
+let wyvern = dragula({ 
 	containers: containersRemoveable,
 	removeOnSpill: true
 });
@@ -84,9 +70,9 @@ $(document).on({
     mouseenter: function () {
         //stuff to do on mouse enter
         // console.log("rollover");
-        var innerhtml = $( this ).html();
-		var x = $(this).offset().left;
-		var y = $(this).offset().top;
+        let innerhtml = $( this ).html();
+		let x = $(this).offset().left;
+		let y = $(this).offset().top;
 		$(" #infopanel").show();
 		$(" #infopanel:before").show();
 		$( "#infopanel" ).html(innerhtml).css("top", y).css("left", x+230);

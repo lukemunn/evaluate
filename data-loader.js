@@ -1,29 +1,30 @@
-var PDFDocument = PDFLib.PDFDocument;
+let PDFDocument = PDFLib.PDFDocument;
 
 
 const { jsPDF } = window.jspdf;
 
-var CLIENT_ID = '559576953817-0drd9ji65as2gc750tpvuj5hcfglsrod.apps.googleusercontent.com';
-var API_KEY = 'AIzaSyDJqo5JL9MxUqHBVdkAn6DhgKcfGaVam4w';
-var SPREADSHEET_ID = '1NLdHWSQjWVZKCyQxjDx3jK9FbfFGvl5YGCxFSJnN1lQ';
-var INDICATOR_RANGE = "'Indicators webtool'!A3:U100"
 
-// Dynamic loading?
-// $.get('/credentials.json').then((response) => {
-//     CLIENT_ID = response.web.client_id;
-//     console.log(CLIENT_ID);
-// });
 
+const USE_GOOGLE_SHEETS = false;
+
+
+let CLIENT_ID = '559576953817-0drd9ji65as2gc750tpvuj5hcfglsrod.apps.googleusercontent.com';
+let API_KEY = 'AIzaSyDJqo5JL9MxUqHBVdkAn6DhgKcfGaVam4w';
+let SPREADSHEET_ID = '1NLdHWSQjWVZKCyQxjDx3jK9FbfFGvl5YGCxFSJnN1lQ';
+let INDICATOR_RANGE = "'Indicators webtool'!A3:U100"
 
 // Array of API discovery doc URLs for APIs used by the quickstart
-var DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
+let DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
 
 // Authorization scopes required by the API; multiple scopes can be
 // included, separated by spaces.
-var SCOPES = "https://www.googleapis.com/auth/spreadsheets.readonly";
+let SCOPES = "https://www.googleapis.com/auth/spreadsheets.readonly";
 
 
-// Global variable for results - use for look-ups
+let CSV_FILE = "Cyberbullying_Grooming_EAPRO Evaluation Matrices - Indicators webtool.csv";
+
+
+// Global letiable for results - use for look-ups
 let indicators = {};
 let selectedIndicators = [];
 let prepopulated = false;
@@ -64,12 +65,106 @@ const FACTORS = [
     'grooming-impacts', 
 ];
 
+
+
 /**
  *  On load, called to load the auth2 library and API client library.
  */
 function handleClientLoad() {
-    gapi.load('client:auth2', initClient);
+    if (USE_GOOGLE_SHEETS) {
+        console.log('Loading data from Google Sheets');
+        gapi.load('client:auth2', initClient);
+    }
+    else {
+        // Load local CSV
+        console.log('Loading data from local CSV');
+        Papa.parse(CSV_FILE, {
+            download: true,
+            header: true,
+            complete: function(results) {
+                populateWithData(results.data);
+            }
+        })
+
+    }
+    
 }
+
+function populateWithData(data) {
+    $('#indicators-list').html("");
+
+    let numRows = data ? data.length : 0;
+
+    for (let i = 0; i < data.length; i++) {
+        let row = data[i];
+        let issue = row['Issue'].toLowerCase();
+        if (issue=="online grooming") {
+            issue="grooming";
+        }
+        if (issue=="both") {
+            issue="grooming cyberbullying";
+        }
+        
+        
+        /* redo letiables based on simpler webtools spreadsheet */
+        let name = row['Indicator'];
+        let desc = row['Measures'];
+        let factors = row['Factors'];
+        let factorStr = factors.split(', ').join(' ');
+        let theory = row['TOC'];
+        
+        let plus = row['Plus'];
+        let minus = row['Minus'];
+        let cite = row['Cite'];
+
+        let indId = `indicator-${i+1}`;
+        $('#indicators-list').append( 
+            `<li id="${indId}" class="drag-item ${issue} ${factorStr}">
+                <h4>${name}</h4>
+                <span class="desc">${desc}</span>
+                <span class="plus">${plus}</span>
+                <span class="minus">${minus}</span>
+                <span class="cite">${cite}</span>
+            </li>`
+        );
+        indicators[indId] = {
+            id: indId,
+            name: name,
+            issue: issue,
+            desc: desc,
+            plus: plus,
+            minus: minus,
+            cite: cite,                       
+            theory: theory,                       
+            factors: factors,                       
+        };
+    }
+    
+
+    $(document).on({
+        mouseenter: function () {
+            //stuff to do on mouse enter
+            let innerhtml = $( this ).html();
+            $( "#infopanel" ).html(innerhtml);
+        },
+        mouseleave: function () {
+            //stuff to do on mouse leave
+            $( "#infopanel" ).html("");
+        }
+    }, ".drag-item");
+
+      
+    $container.isotope({
+        // options
+        itemSelector: '.drag-item',
+        layoutMode: 'vertical'		 
+        
+    });
+
+    //console.log(`${result.values} .`);
+    console.log(`${numRows} rows retrieved.`);
+}
+
 
 /**
  *  Initializes the API client library and sets up sign-in state
@@ -90,20 +185,13 @@ function initClient() {
             range: INDICATOR_RANGE
           }).then((response) => {
             let result = response.result;
-            let numRows = result.values ? result.values.length : 0;
-			
-			// remove the loading text 
-			$('#indicators-list').html("");
-
+            
+            let data = [];
+            
             for (let i = 0; i < result.values.length; i++) {
                 let row = result.values[i];
-                let issue = row[0].toLowerCase();
-				if (issue=="online grooming") {
-					issue="grooming";
-				}
-				if (issue=="both") {
-					issue="grooming cyberbullying";
-				}
+                let rowData = {};
+                let issue = row[0];
 				
 				/* redo variables based on simpler webtools spreadsheet */
                 let name = row[1];
@@ -116,51 +204,21 @@ function initClient() {
                 let minus = row[6];
 				let cite = row[7];
 
-                let indId = `indicator-${i+1}`;
-                $('#indicators-list').append( 
-                    `<li id="${indId}" class="drag-item ${issue} ${factorStr}">
-                        <h4>${name}</h4>
-                        <span class="desc">${desc}</span>
-                        <span class="plus">${plus}</span>
-                        <span class="minus">${minus}</span>
-                        <span class="cite">${cite}</span>
-                    </li>`
-                );
-                indicators[indId] = {
-                    id: indId,
-                    name: name,
-                    issue: issue,
-                    desc: desc,
-                    plus: plus,
-                    minus: minus,
-                    cite: cite,                       
-                    theory: theory,                       
-                    factors: factors,                       
-                };
+                rowData['Issue'] = issue;
+                rowData['Indicator'] = name;
+                rowData['Measures'] = desc;
+                rowData['Factors'] = factors;
+                rowData['TOC'] = theory;
+                rowData['Plus'] = plus;
+                rowData['Minus'] = minus;
+                rowData['Cite'] = cite;
+
+                data.push(rowData);
             }
-			
-			$(document).on({
-                mouseenter: function () {
-                    //stuff to do on mouse enter
-                    var innerhtml = $( this ).html();
-                    $( "#infopanel" ).html(innerhtml);
-                },
-                mouseleave: function () {
-                    //stuff to do on mouse leave
-                    $( "#infopanel" ).html("");
-                }
-            }, ".drag-item");
+            
+            
+            populateWithData(data);
 
-			  
-            $container.isotope({
-                // options
-                itemSelector: '.drag-item',
-                layoutMode: 'vertical'		 
-                
-            });
-
-            //console.log(`${result.values} .`);
-            console.log(`${numRows} rows retrieved.`);
           });        
 
 
@@ -205,12 +263,12 @@ function depopulateIndicators() {
 
 function getBase64Image(img) {
     // Create an empty canvas element
-    var canvas = document.createElement("canvas");
+    let canvas = document.createElement("canvas");
     canvas.width = img.width;
     canvas.height = img.height;
 
     // Copy the image contents to the canvas
-    var ctx = canvas.getContext("2d");
+    let ctx = canvas.getContext("2d");
     ctx.drawImage(img, 0, 0);
 
     // Get the data-URL formatted image
@@ -417,10 +475,10 @@ function generateReport() {
 
 // function to save byte array as pdf
 function saveByteArray(reportName, byte) {
-    var blob = new Blob([byte], {type: "application/pdf"});
-    var link = document.createElement('a');
+    let blob = new Blob([byte], {type: "application/pdf"});
+    let link = document.createElement('a');
     link.href = window.URL.createObjectURL(blob);
-    var fileName = reportName;
+    let fileName = reportName;
     link.download = fileName;
     link.click();
 };
@@ -583,15 +641,4 @@ function generateIndicators(doc, element) {
   
 
 }
-/* Test text
-    
-    let vals = [];
-    $('#drag-1').find('li').each((index, value) => {
-        vals.push(value);
-        console.log(index);
-    });    
-*/
 
-function hideReport() {
-    $('.report-fixed').hide();
-}
