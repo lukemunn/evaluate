@@ -11,7 +11,7 @@ const USE_GOOGLE_SHEETS = false;
 let CLIENT_ID = '559576953817-0drd9ji65as2gc750tpvuj5hcfglsrod.apps.googleusercontent.com';
 let API_KEY = 'AIzaSyDJqo5JL9MxUqHBVdkAn6DhgKcfGaVam4w';
 let SPREADSHEET_ID = '1NLdHWSQjWVZKCyQxjDx3jK9FbfFGvl5YGCxFSJnN1lQ';
-let INDICATOR_RANGE = "'Indicators webtool'!A3:U100"
+let INDICATOR_RANGE = "'Indicators webtool'!A2:U100"
 
 // Array of API discovery doc URLs for APIs used by the quickstart
 let DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
@@ -78,6 +78,8 @@ function handleClientLoad() {
     else {
         // Load local CSV
         console.log('Loading data from local CSV');
+            
+        // });
         Papa.parse(CSV_FILE, {
             download: true,
             header: true,
@@ -117,7 +119,7 @@ function populateWithData(data) {
         let minus = row['Minus'];
         let cite = row['Cite'];
 
-        let indId = `indicator-${i+1}`;
+        let indId = row['ID'];
         $('#indicators-list').append( 
             `<li id="${indId}" class="drag-item ${issue} ${factorStr}">
                 <h4>${name}</h4>
@@ -191,27 +193,35 @@ function initClient() {
             for (let i = 0; i < result.values.length; i++) {
                 let row = result.values[i];
                 let rowData = {};
-                let issue = row[0];
+                
+                let indicatorID = row[0];
+                let issue = row[1];
 				
 				/* redo variables based on simpler webtools spreadsheet */
-                let name = row[1];
-                let desc = row[2];
-                let factors = row[3];
+                let name = row[2];
+                let questions = row[3];
+                questions = questions.replaceAll('\n', '; ');
+                let desc = row[4];
+                let factors = row[5];
                 let factorStr = factors.split(', ').join(' ');
-				let theory = row[4];
+				let theory = row[6];
 				
-                let plus = row[5];
-                let minus = row[6];
-				let cite = row[7];
+                let plus = row[7];
+                let minus = row[8];
+				let cite = row[9];
+				let citeFull = row[10];
 
+                rowData['IndicatorID'] = issue;
                 rowData['Issue'] = issue;
                 rowData['Indicator'] = name;
+                rowData['Questions'] = questions;
                 rowData['Measures'] = desc;
                 rowData['Factors'] = factors;
                 rowData['TOC'] = theory;
                 rowData['Plus'] = plus;
                 rowData['Minus'] = minus;
                 rowData['Cite'] = cite;
+                rowData['CiteFull'] = citeFull;
 
                 data.push(rowData);
             }
