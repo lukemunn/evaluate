@@ -117,7 +117,7 @@ function populateWithData(data) {
         
         let plus = row['Plus'];
         let minus = row['Minus'];
-        let cite = row['Cite'];
+        let cite = row['FullCitation'];
 
         let indId = row['ID'];
         $('#indicators-list').append( 
