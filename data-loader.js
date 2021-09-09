@@ -472,17 +472,17 @@ function doIndicators(doc, issue, issueTitle) {
     
     if (ic == 0) {
         toc = 'strain';
-        issueTab = $(`button.${issue}.${toc}[aria-selected=true] > .flex-container > .${factor}`);
+        issueTab = $(`button.${issue}.${toc}[aria-selected=true]`);
         ic = issueTab.length;
     }
     if (ic == 0) {
         toc = 'empowerment';
-        issueTab = $(`button.${issue}.${toc}[aria-selected=true] > .flex-container > .${factor}`);
+        issueTab = $(`button.${issue}.${toc}[aria-selected=true]`);
         ic = issueTab.length;
     }
     if (ic == 0) {
         toc = 'nudge';
-        issueTab = $(`button.${issue}.${toc}[aria-selected=true] > .flex-container > .${factor}`);
+        issueTab = $(`button.${issue}.${toc}[aria-selected=true]`);
         ic = issueTab.length;
     }
 
