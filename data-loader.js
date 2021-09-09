@@ -83,6 +83,7 @@ function handleClientLoad() {
         Papa.parse(CSV_FILE, {
             download: true,
             header: true,
+            encoding: "UTF-8",
             complete: function(results) {
                 populateWithData(results.data);
             }
@@ -288,28 +289,37 @@ function getBase64Image(img) {
     return canvas.toDataURL("image/png");
 }
 
-function generateReport() {
+function getFont(fontLocation) {
 
-    const doc = new jsPDF();
-    let yo = 40;
+}
 
+function loadFontsAndGenerateReport() {
+    const useTTF = false;
+    if (useTTF) {
+        const doc = new jsPDF({ filters: ["ASCIIHexEncode"] });
+
+        // Converted Google OpenSans font to base64
+        // Uses https://www.base64encode.org/enc/font/
+        // From https://fonts.google.com/specimen/Open+Sans
+        generateReport(doc);
     
+    }
+    else {
+        const doc = new jsPDF();
+        generateReport(doc);
+    }
+}
 
-    doc.setFontSize(16);
-    doc.setTextColor(28,171,226);
-    doc.setFont(doc.getFont().fontName, "bold");
-    doc.text("Cyberbullying", 20, 20);
-
+function doCausalDiagram(doc, issue) {
+    // Do causal diagram
     doc.setFontSize(8);
     doc.setTextColor(0, 0, 0);
     doc.setFont(doc.getFont().fontName, "normal");
 
-    
-    // Do causal diagram
     let facCount = 0, yOffset = 0, maxY = 0;
     for (let i = 0; i < FACTORS.length - 4; i++) {
         let factor = FACTORS[i];
-        let draggable = $(`.cyberbullying.ecological > .flex-container > .${factor}`);
+        let draggable = $(`.${issue}.ecological > .flex-container > .${factor}`);
         let heading = draggable.find('.drag-column-header').text();
         let selected = draggable.find('li > h4');
         let ilen = selected !== undefined ? selected.length : 0;
@@ -400,50 +410,92 @@ function generateReport() {
     const img = new Image();
     img.src = 'down-arrow.png';
     let arrowImg = getBase64Image(img);
-    doc.addImage(arrowImg, 'PNG', 102, 90 + yOffset, 10, 10);
+    doc.addImage(arrowImg, 'PNG', 102, 80 + yOffset, 10, 10);
 
 
-    let prevalence = $(`.cyberbullying-prevalence`).find('li > h4');
+    let prevalence = $(`.${issue}-prevalence`).find('li > h4');
     let plen = prevalence !== undefined ? prevalence.length : 0;
+    let rectDepth = 116 + plen * 6;
     doc.setFillColor("#d7b1e2");
-    doc.roundedRect(80, 106 + yOffset, 56, 20 + plen * 8, 3, 3, 'DF');
+    doc.roundedRect(80, 96 + yOffset, 56, 20 + plen * 6, 3, 3, 'DF');
     doc.setFont(doc.getFont().fontName, "bold");
     doc.setFontSize(8);
-    doc.text("Prevalence", 82, 112 + yOffset);
+    doc.text("Prevalence", 82, 102 + yOffset);
     doc.setFont(doc.getFont().fontName, "normal");
     doc.setFontSize(7);
     for (let j = 0; j < plen; j++) {
         let indText = prevalence[j].textContent;
+        if (indText.length == 0)
+            continue;
         // doc.text(indText, 120, 140 + j * 8);
-        let yo = 118 + yOffset + j * 8;
+        let yo = 108 + yOffset + j * 6;
         let yon = printAndOffset(doc, indText, 52, 82, yo, 5);
         yOffset += (yon - yo);
     }
-    doc.addImage(arrowImg, 'PNG', 102, 154 + yOffset, 10, 10);
+    doc.addImage(arrowImg, 'PNG', 102, rectDepth + 2 + yOffset, 10, 10);
 
-    let impacts = $(`.cyberbullying-impacts`).find('li > h4');
+    let impacts = $(`.${issue}-impacts`).find('li > h4');
     let mlen = impacts !== undefined ? impacts.length : 0;
+    rectDepth = rectDepth + 18;
     doc.setFillColor("#cfb3a5");
-    doc.roundedRect(80, 170 + yOffset, 56, 20 + mlen * 8, 3, 3, 'DF');
+    doc.roundedRect(80, rectDepth + yOffset, 56, 10 + mlen * 6, 3, 3, 'DF');
     doc.setFont(doc.getFont().fontName, "bold");
     doc.setFontSize(8);
-    doc.text("Impacts", 82, 176 + yOffset);
+    doc.text("Impacts", 82, rectDepth + 6 + yOffset);
     doc.setFont(doc.getFont().fontName, "normal");
     doc.setFontSize(7);
     for (let j = 0; j < mlen; j++) {
         let indText = prevalence[j].textContent;
         // doc.text(indText, 120, 240 + j * 8);
-        let yo = 182 + yOffset + j * 8;
+        let yo = rectDepth + 12 + yOffset + j * 6;
         let yon = printAndOffset(doc, indText, 52, 82, yo, 5);
         yOffset += (yon - yo);
     }
 
+}
+
+function doIssueTitle(doc, issueTitle) {
+    doc.setFontSize(16);
+    doc.setTextColor(28,171,226);
+    doc.setFont(doc.getFont().fontName, "bold");
+    doc.text(issueTitle + " Indicators", 20, 20);
+}
+
+function doIndicators(doc, issue, issueTitle) {
     doc.addPage();
-    // Add Factor Indicators
+
+    // Get the right tab
+    // Hack, to get indicators for the active tab. A better way would be to programmatically retrieve it.
+    let toc = 'ecological';
+    let issueTab = $(`button.${issue}.${toc}[aria-selected=true]`);
+    let ic = issueTab.length;
+    
+    if (ic == 0) {
+        toc = 'strain';
+        issueTab = $(`button.${issue}.${toc}[aria-selected=true] > .flex-container > .${factor}`);
+        ic = issueTab.length;
+    }
+    if (ic == 0) {
+        toc = 'empowerment';
+        issueTab = $(`button.${issue}.${toc}[aria-selected=true] > .flex-container > .${factor}`);
+        ic = issueTab.length;
+    }
+    if (ic == 0) {
+        toc = 'nudge';
+        issueTab = $(`button.${issue}.${toc}[aria-selected=true] > .flex-container > .${factor}`);
+        ic = issueTab.length;
+    }
+
+    // Add Factor Indicators 
     for (let i = 0; i < FACTORS.length; i++) {
         let factor = FACTORS[i];
-        let draggable = $(`.cyberbullying.ecological > .flex-container > .${factor}`);
-        let heading = draggable.find('.drag-column-header').text();
+
+        let issuePanel = $(`.${issue}.${toc} > .flex-container > .${factor}`);
+
+        let indicatorCount = issuePanel.find('li').length;
+        let heading = issuePanel.find('.drag-column-header').text();
+        if (heading == "")
+            continue;
 
         if (i > 0)
             doc.addPage();
@@ -451,30 +503,47 @@ function generateReport() {
         doc.setTextColor(28,171,226);
         doc.setFont(doc.getFont().fontName, "bold");
         doc.text(heading, 20, 20);
-        generateIndicators(doc, draggable);
+        console.log(heading);
+        if (indicatorCount > 0)
+            generateIndicators(doc, issuePanel);
+
     }
-    
+    let prevalence = $(`.${issue}-prevalence`);
+    indicatorCount = prevalence.find('li').length;
     doc.addPage();
-    doc.setFontSize(16);
+    doc.setFontSize(13);
     doc.setTextColor(28,171,226);
     doc.setFont(doc.getFont().fontName, "bold");
-    doc.text("Grooming", 20, 20);
-    
-    // Add Factor Indicators
-    for (let i = 0; i < FACTORS.length; i++) {
-        let factor = FACTORS[i];
-        let draggable = $(`.grooming.ecological > .flex-container > .${factor}`);
-        let heading = draggable.find('.drag-column-header').text();
-
-        doc.addPage();
-        doc.setFontSize(13);
-        doc.setTextColor(28,171,226);
-        doc.setFont(doc.getFont().fontName, "bold");
-        doc.text(heading, 20, 20);
-        generateIndicators(doc, draggable);
+    doc.text(issueTitle + ' Behaviour', 20, 20);
+    if (indicatorCount > 0) {
+        generateIndicators(doc, prevalence);
     }
+    let impacts = $(`.${issue}-impacts`);
+    indicatorCount = impacts.find('li').length;
+    doc.addPage();
+    doc.setFontSize(13);
+    doc.setTextColor(28,171,226);
+    doc.setFont(doc.getFont().fontName, "bold");
+    doc.text(issueTitle + ' Impacts', 20, 20);
+    if (indicatorCount > 0) {
+        generateIndicators(doc, impacts);
+    }
+    doc.addPage();
+
+}
+
+function generateReport(doc) {
+
     
 
+    doIssueTitle(doc, "Cyberbullying");
+    doCausalDiagram(doc, "cyberbullying");
+    doIndicators(doc, "cyberbullying", "Cyberbullying");
+
+
+    doIssueTitle(doc, "Grooming");
+    doCausalDiagram(doc, "grooming");
+    doIndicators(doc, "grooming", "Grooming");
    
 	const arrayBuffer = doc.output('arraybuffer');
 	
@@ -497,7 +566,8 @@ async function mergePages(myBuffer) {
 	
 	// attempt to merge 2 pdfs client side
 	const mergedPdf = await PDFDocument.create();
-	
+
+    
 	// load the static pdf 
 	const url1 = 'static.pdf';
 	
@@ -512,8 +582,7 @@ async function mergePages(myBuffer) {
 	
 	// add each page to the merged PDF
   	copiedPages.forEach((page) => {
-    console.log('page', page.getWidth(), page.getHeight());
-    mergedPdf.addPage(page);
+        mergedPdf.addPage(page);
     });
 	
 	
@@ -529,8 +598,8 @@ async function mergePages(myBuffer) {
 	
 	// add each page to the merged PDF
   	dynamicPages.forEach((page) => {
-    console.log('page', page.getWidth(), page.getHeight());
-    mergedPdf.addPage(page);
+        console.log('page', page.getWidth(), page.getHeight());
+        mergedPdf.addPage(page);
     });
 		
 
@@ -576,6 +645,7 @@ function generateIndicators(doc, element) {
     let indicatorsPerPage  = 4;
     let counter = 0;
     element.find('li').each((index, value) => {
+        let title = $(value).find('h4')[0];
         let desc = $(value).find('span.desc')[0];
         let measuresText = desc.innerText.split('\n');
         let plus = $(value).find('span.plus')[0];
@@ -598,7 +668,7 @@ function generateIndicators(doc, element) {
         }
         doc.setFontSize(12);
         doc.setFont(doc.getFont().fontName, "bold");
-        doc.text(value.innerText.toString(), 20, yo);
+        doc.text(title.innerText.toString(), 20, yo);
 
         doc.setFontSize(10);
         yo += 6;
@@ -631,6 +701,7 @@ function generateIndicators(doc, element) {
         // doc.text(cite.innerText.toString(), fieldOffset, yo);
         let citeText = cite.innerText.toString();
         citeText = citeText.trim().replace('\n', ' ');
+        // console.log(citeText);
         yo = printAndOffset(doc, citeText, reflow, fieldOffset, yo, 5);
 
         yo += 6;
