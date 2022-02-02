@@ -21,7 +21,7 @@ let DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"
 let SCOPES = "https://www.googleapis.com/auth/spreadsheets.readonly";
 
 
-let CSV_FILE = "Cyberbullying_Grooming_EAPRO Evaluation Matrices - Indicators webtool.csv";
+let CSV_FILE = "data/Cyberbullying_Grooming_EAPRO Evaluation Matrices - Indicators webtool.csv";
 
 
 // Global letiable for results - use for look-ups
@@ -289,9 +289,6 @@ function getBase64Image(img) {
     return canvas.toDataURL("image/png");
 }
 
-function getFont(fontLocation) {
-
-}
 
 function loadFontsAndGenerateReport() {
     const useTTF = false;
@@ -569,7 +566,7 @@ async function mergePages(myBuffer) {
 
     
 	// load the static pdf 
-	const url1 = 'static.pdf';
+	const url1 = 'template/static.pdf';
 	
 	// when we load it, convert to array buffer
 	const staticBytes = await fetch(url1).then(res => res.arrayBuffer());

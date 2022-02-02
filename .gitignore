@@ -5,3 +5,8 @@ credentials.json
 # Ignore node_modules
 node_modules/*
 package-lock.json
+
+# Ignore generated files
+My Evaluation Framework*
+
+.DS_Store

@@ -6,13 +6,13 @@
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 	
-	<script src="jquery.min.js"></script>	
+	<script src="javascript/jquery.min.js"></script>	
 
-	<script src="heatmap.min.js"></script>	
+	<script src="javascript/heatmap.min.js"></script>	
 
-	<script src="isotope.pkgd.min.js"></script>
+	<script src="javascript/isotope.pkgd.min.js"></script>
 
-	<script src="papaparse.js"></script>
+	<script src="javascript/papaparse.min.js"></script>
 	
 	<script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.js" type="text/javascript"></script>
 
@@ -21,11 +21,11 @@
 	
 	<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/45226/dragula.min.js"></script>
 	
-	<link rel="stylesheet" href="style.css" />
+	<link rel="stylesheet" href="styles/style.css" />
 	
-	<link rel="stylesheet" href="tabs.css">
+	<link rel="stylesheet" href="styles/tabs.css">
 	
-	<link rel="stylesheet" href="swiper-bundle.css">
+	<link rel="stylesheet" href="styles/swiper-bundle.css">
 	
 	<!-- swiper styling -->
     <style>
@@ -116,28 +116,28 @@
 	  </div>
       <div class="swiper-slide">
 		  <p>
-			  <img src="img1.png" /><br/><br/>
+			  <img src="images/img1.png" /><br/><br/>
 			  We'll provide a list of <b>indicators</b> based on studies and past projects. 
 	  	  	An indicator is a specific way to measure how a program is doing.
 			</p>
   	  </div>
       <div class="swiper-slide">
 	  		<p>
-				<img src="img2.png" /><br/><br/>
+				<img src="images/img2.png" /><br/><br/>
 				We also set out <b>Theories of Change</b> - models setting out how and why change should happen in a particular context.
 			</p>
 	  </div>
       <div class="swiper-slide">
-	  		<p><img src="img3.png" /><br/><br/>
+	  		<p><img src="images/img3.png" /><br/><br/>
 				Some Theories concentrate on influencing behavior at a micro level, others strive to account for multiple layers and scales. 
 	  Choose the one that fits your organization's aims and abilities.</p>
   	  </div>
       <div class="swiper-slide">
-      		<p><img src="img4.png" /><br/><br/>
+      		<p><img src="images/img4.png" /><br/><br/>
 				To create your evaluation framework, just drag and drop indicators into the boxes. Alternatively hit the <b>Prepopulate</b> button to auto-fill boxes, then customize by dragging indicators out.</p>
       </div>
       <div class="swiper-slide">
-		  	<p><img src="img5.png" /><br/><br/>
+		  	<p><img src="images/img5.png" /><br/><br/>
 				When you're finished, hit the <b>Generate PDF</b> button to create a document with your custom framework plus tips for best-practice evaluation.
 				<br/>
 				<button class="button" id="getstarted">Get Started</button></p>
@@ -306,14 +306,14 @@
 		  <!-- end ToC panes -->
 		  
 			<!-- behavior and impacts -->
-			<img src="down-arrow.png" class="down-arrow"/>
+			<img src="images/down-arrow.png" class="down-arrow"/>
 
 			
 			<div class="drag-column behavior cyberbullying-prevalence">
 					<span class="drag-column-header">Reduce Cyberbullying Behavior</span><div class="drag-inner-list"></div>		
 			</div>
 	
-			<img src="down-arrow.png" class="down-arrow"/>
+			<img src="images/down-arrow.png" class="down-arrow"/>
 	
 			<div class="drag-column impacts cyberbullying-impacts">
 					<span class="drag-column-header">Reduce Cyberbullying Impacts</span><div class="drag-inner-list"></div>		
@@ -457,13 +457,13 @@
 		  <!-- end grooming ToC panes -->
 		  
 		<!-- behavior and impacts -->
-		<img src="down-arrow.png" class="down-arrow"/>
+		<img src="images/down-arrow.png" class="down-arrow"/>
 
 		<div class="drag-column behavior grooming-prevalence">
 				<span class="drag-column-header">Reduce Online Grooming Behavior</span><div class="drag-inner-list"></div>		
 		</div>
 
-	  	<img src="down-arrow.png" class="down-arrow"/>
+	  	<img src="images/down-arrow.png" class="down-arrow"/>
 
 		<div class="drag-column impacts grooming-impacts">
 				<span class="drag-column-header">Reduce Online Grooming Impacts</span><div class="drag-inner-list"></div>		
@@ -510,7 +510,7 @@
 	  
 	  
 	
-	<script src="tabbis.es6.js"></script>
+	<script src="javascript/tabbis.es6.js"></script>
     <script>
       tabbis({
         memory: false
@@ -559,8 +559,8 @@
       onload="this.onload=function(){};handleClientLoad()"
       onreadystatechange="if (this.readyState === 'complete') this.onload()">
     </script>	
-	<script src="heatmap-generator.js"></script>	
-	<script src="data-loader.js"></script>	
-	<script src="script.js"></script>	
+	<script src="javascript/heatmap-generator.js"></script>	
+	<script src="javascript/evaluate-data.js"></script>	
+	<script src="javascript/evaluate-ui.js"></script>	
 </footer>
 </html>
